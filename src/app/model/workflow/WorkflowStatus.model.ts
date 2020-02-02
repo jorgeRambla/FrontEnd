@@ -1,0 +1,10 @@
+export enum WorkflowStatusModel {
+  APPROVED,
+  PENDING,
+  DENIED,
+  DRAFT,
+  DRAFT_FROM_APPROVED,
+  EXPIRED,
+  INCOMPLETE,
+  SCHEDULED
+}
