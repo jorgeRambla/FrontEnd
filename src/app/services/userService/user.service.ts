@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
-import {Token} from '../../model/Token';
+import {TokenModel} from '../../model/Token.model';
 import {LoggerService} from '../shared/logger.service';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {UserModel} from '../../model/user/User.model';
+import {UserRolModel} from '../../model/user/UserRol.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +13,50 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 export class UserService implements CanActivate {
 
   constructor(private http: HttpClient, private router: Router, private logger: LoggerService) { }
-  private currentServiceEndPoint = 'user/';
+  private currentServiceEndPoint = 'user';
   private baseAPIUrl = environment.baseAPIUrl.concat(this.currentServiceEndPoint);
 
-  private static setSessionData(token: Token) {
+  private static setTokenSessionData(token: TokenModel): void {
     localStorage.setItem('jsonToken', token.jsonWebToken);
     localStorage.setItem('jsonToken.expiration', new Date(Date.now() + token.expirationTime).toString());
   }
 
+  private static setUserSessionData(user: UserModel): void {
+    localStorage.setItem('user.id', String(user.id));
+    localStorage.setItem('user.rol', String(user.role));
+  }
+
+  private static removeSessionData(): void {
+    localStorage.clear();
+  }
+
+  public static getUserId(): number {
+    return Number(localStorage.getItem('user.id'));
+  }
+
+  public getAuthHttpHeader(): HttpHeaders {
+    return new HttpHeaders({Authorization: 'Bearer '.concat(localStorage.getItem('jsonToken'))});
+  }
+
   public login(username: string, password: string): Promise<any> {
     return this.http.post(
-      this.baseAPIUrl.concat('login'), {
+      this.baseAPIUrl.concat('/login'), {
         username,
         password
       })
       .toPromise()
       .then( data => {
-        UserService.setSessionData(data as Token);
-        return data as Token;
+        UserService.setTokenSessionData(data as TokenModel);
+        this.retrieveCurrentSessionUserData()
+          .then(userData => {
+            UserService.setUserSessionData(userData);
+          })
+          .catch(error => {
+            this.logger.debug('Cannot retrieve user info after login on \'UserService\'', error);
+            UserService.removeSessionData();
+            throw error;
+          });
+        return data as TokenModel;
       })
       .catch( error => {
         this.logger.debug('Cannot perform login on \'UserService\'', error);
@@ -36,9 +64,13 @@ export class UserService implements CanActivate {
       });
   }
 
+  /**
+   * Send POST request to confirm user creation token
+   * @param token: string
+   */
   public confirmToken(token: string): Promise<any> {
     return this.http.post(
-      this.baseAPIUrl.concat('confirm/').concat(token), {
+      this.baseAPIUrl.concat('/confirm/').concat(token), {
       })
       .toPromise()
       .catch( error => {
@@ -47,6 +79,13 @@ export class UserService implements CanActivate {
       });
   }
 
+  /**
+   * Send POST request to create user
+   * @param username: string
+   * @param password: string
+   * @param email: string
+   * @param fullName: string
+   */
   public createUser(username: string, password: string, email: string, fullName: string) {
     return this.http.post(
      this.baseAPIUrl, {
@@ -63,7 +102,54 @@ export class UserService implements CanActivate {
       });
   }
 
+  public retrieveCurrentSessionUserData(): Promise<UserModel> {
+    return this.retrieveUserDataById(UserService.getUserId());
+  }
+
+  public retrieveUserDataById(id: number): Promise<UserModel> {
+    return this.http.get(
+      this.baseAPIUrl.concat('/info/').concat(String(id)), {
+        headers: this.getAuthHttpHeader()
+      })
+      .toPromise()
+      .then( data => {
+        return data as UserModel;
+      } )
+      .catch( error => {
+        this.logger.debug('Cannot fetch user by id {{id}} on \'UserService\''.replace('{id}', String(id)), error);
+        throw error;
+      });
+  }
+
+  public updateCurrentSessionUser(username: string, password: string, email: string,
+                                  fullName: string, role?: UserRolModel[]): Promise<UserModel> {
+    return this.updateUserById(UserService.getUserId(), username, password, email, fullName, role);
+  }
+
+  public updateUserById(id: number, username: string, password: string, email: string,
+                        fullName: string, role?: UserRolModel[]): Promise<UserModel> {
+    return this.http.put(
+      this.baseAPIUrl.concat('/info'), {
+        username,
+        password,
+        email,
+        fullName,
+        role
+      }, {
+        headers: this.getAuthHttpHeader()
+      })
+      .toPromise()
+      .then( data => {
+        return data as UserModel;
+      })
+      .catch( error => {
+        this.logger.debug('Cannot update current user on \'UserService\'', error);
+        throw error;
+      });
+  }
+
   public sessionIsActive(): boolean {
+    //TODO: complete this method
     return true;
   }
 

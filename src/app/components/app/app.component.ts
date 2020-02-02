@@ -10,8 +10,9 @@ export class AppComponent {
   title = 'MurcyFrontEnd';
 
   constructor(userService: UserService) {
-    userService.login('yorch044', 'yorch044')
+    /*userService.login('yorch044', 'yorch044')
       .then(data => console.log(data))
-      .catch(error => error);
+      .catch(error => error);*/
+    /*userService.createUser('test', 'test', 'yorch044zgz@gmail.com', 'Jorge Rambla Gonzalez').then().catch();*/
   }
 }
