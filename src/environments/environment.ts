@@ -1,10 +1,13 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+import {LogLevel} from '../app/services/shared/LogLevel';
 
 export const environment = {
   production: false,
-  baseAPIUrl: 'localhost:8080/api/'
+  baseAPIUrl: 'http://localhost:9090/api/',
+  //baseAPIUrl: 'https://unizar-30248-2019-murcy.herokuapp.com/api/',
+  logger: {
+    level: LogLevel.All,
+    printDate: true
+  }
 };
 
 
