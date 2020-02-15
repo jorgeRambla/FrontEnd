@@ -103,7 +103,18 @@ export class UserService implements CanActivate {
   }
 
   public retrieveCurrentSessionUserData(): Promise<UserModel> {
-    return this.retrieveUserDataById(UserService.getUserId());
+    return this.http.get(
+      this.baseAPIUrl.concat('/info'), {
+        headers: this.getAuthHttpHeader()
+      })
+      .toPromise()
+      .then( data => {
+        return data as UserModel;
+      } )
+      .catch( error => {
+        this.logger.debug('Cannot fetch current session user on \'UserService\'', error);
+        throw error;
+      });
   }
 
   public retrieveUserDataById(id: number): Promise<UserModel> {
@@ -150,21 +161,26 @@ export class UserService implements CanActivate {
 
   public sessionIsActive(): boolean {
     //TODO: complete this method
-    return true;
+    return localStorage.getItem('jsonToken') !== null;
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.sessionIsActive()) {
-      this.router.navigate(['']).then(action => {
-        this.logger.debug('Session is active, go to ...', action);
-        return true;
-      });
+    if (state.url === '/login' || state.url === '/sign-up') {
+      if (this.sessionIsActive()) {
+        this.router.navigate(['']).then( action => {
+          this.logger.debug('Session is active, go to HOME', action);
+          return false;
+        });
+      }
     } else {
-      this.router.navigate(['']).then(action => {
-        this.logger.debug('Session isn\'t active, go to ...', action);
-        return false;
-      });
+      if (!this.sessionIsActive()) {
+        this.router.navigate(['login']).then(action => {
+          this.logger.debug('Session isn\'t active, go to login', action);
+          return false;
+        });
+      }
+      return false;
     }
-    return false;
+    return true;
   }
 }

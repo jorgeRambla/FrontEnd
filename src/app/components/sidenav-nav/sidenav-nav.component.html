@@ -1,0 +1,8 @@
+<div *ngIf="showNavigation" fxFill>
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Display not login components -->
+<div *ngIf="!showNavigation" fxFill>
+  <router-outlet></router-outlet>
+</div>

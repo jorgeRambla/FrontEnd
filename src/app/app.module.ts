@@ -9,10 +9,15 @@ import { environment } from '../environments/environment';
 import {MaterialModule} from './material.module';
 import {UserService} from './services/userService/user.service';
 import {HttpClientModule} from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SidenavNavComponent } from './components/sidenav-nav/sidenav-nav.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    LoginComponent,
+    SignUpComponent,
+    SidenavNavComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,7 @@ import {HttpClientModule} from '@angular/common/http';
   providers: [
     UserService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [SidenavNavComponent]
 })
 export class AppModule { }
 

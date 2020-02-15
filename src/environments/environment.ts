@@ -5,7 +5,7 @@ export const environment = {
   baseAPIUrl: 'http://localhost:9090/api/',
   //baseAPIUrl: 'https://unizar-30248-2019-murcy.herokuapp.com/api/',
   logger: {
-    level: LogLevel.Off,
+    level: LogLevel.All,
     printDate: true
   }
 };
