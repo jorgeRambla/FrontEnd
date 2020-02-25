@@ -13,11 +13,11 @@ export class SidenavMenusComponent implements OnInit {
   constructor(private permissionService: PermissionService, private logger: LoggerService, private router: Router) {
   }
 
-  private hasUserPermission: boolean;
-  private hasEditorPermission: boolean;
-  private hasReviewerPermission: boolean;
-  private hasAdminPermission: boolean;
-  private username: string;
+  hasUserPermission: boolean;
+  hasEditorPermission: boolean;
+  hasReviewerPermission: boolean;
+  hasAdminPermission: boolean;
+  username: string;
 
   ngOnInit() {
     this.hasUserPermission = this.permissionService.hasUserPermission();

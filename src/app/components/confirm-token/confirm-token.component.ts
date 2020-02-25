@@ -15,8 +15,8 @@ export class ConfirmTokenComponent implements OnInit, OnDestroy {
   }
 
   private subscription;
-  private isConfirmValid: boolean;
-  private timeout = 5;
+  isConfirmValid: boolean;
+  timeout = 5;
 
   ngOnInit(): void {
     this.subscription = this.activatedRoute.paramMap.subscribe(parameters => {
