@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {TokenModel} from '../../model/Token.model';
 import {LoggerService} from '../shared/logger.service';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 import {UserModel} from '../../model/user/User.model';
 import {UserRolModel} from '../../model/user/UserRol.model';
+import sha256 from 'crypto-js/sha256';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,10 @@ export class UserService implements CanActivate {
 
   private static setUserSessionData(user: UserModel): void {
     localStorage.setItem('user.id', String(user.id));
-    localStorage.setItem('user.rol', String(user.role));
+    localStorage.setItem('user.username', String(user.username));
+    localStorage.setItem('user.rol', String(user.role.map(item => {
+      return sha256(String(item));
+    })));
   }
 
   private static removeSessionData(): void {
@@ -47,15 +51,6 @@ export class UserService implements CanActivate {
       .toPromise()
       .then( data => {
         UserService.setTokenSessionData(data as TokenModel);
-        this.retrieveCurrentSessionUserData()
-          .then(userData => {
-            UserService.setUserSessionData(userData);
-          })
-          .catch(error => {
-            this.logger.debug('Cannot retrieve user info after login on \'UserService\'', error);
-            UserService.removeSessionData();
-            throw error;
-          });
         return data as TokenModel;
       })
       .catch( error => {
@@ -109,6 +104,7 @@ export class UserService implements CanActivate {
       })
       .toPromise()
       .then( data => {
+        UserService.setUserSessionData(data as UserModel);
         return data as UserModel;
       } )
       .catch( error => {
@@ -165,7 +161,7 @@ export class UserService implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (state.url === '/login' || state.url === '/sign-up') {
+    if (state.url === '/login' || state.url === '/sign-up' || state.url.match('^\/confirm-token\/([A-Z0-9a-z-]+)$')) {
       if (this.sessionIsActive()) {
         this.router.navigate(['']).then( action => {
           this.logger.debug('Session is active, go to HOME', action);

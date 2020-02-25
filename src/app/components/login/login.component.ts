@@ -20,9 +20,9 @@ export class LoginComponent implements OnInit {
   public submitLoginForm(): void {
     if (this.username.valid && this.password.valid) {
       this.userService.login(this.username.value, this.password.value)
-        .finally(() => {
-          this.router.navigate(['']).finally(() => {
-            this.logger.debug('Nav to HOME from login');
+        .then(() => {
+          this.userService.retrieveCurrentSessionUserData().then(() => {
+            window.location.reload();
           });
         })
         .catch(error => {

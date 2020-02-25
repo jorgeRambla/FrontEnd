@@ -1,0 +1,25 @@
+<div fxFill class="app-sidenav-navigation-container" *ngIf="showNavigation" style="height: 100vh;">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="current-app-name">Responsive App</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill class="sidenav-container" [style.marginTop.px]="0">
+    <mat-sidenav #sidenav fxLayout="column" [mode]="'side'" fixedTopGap="56" class="sidenav-navigation">
+      <mat-nav-list>
+        <app-sidenav-menus></app-sidenav-menus>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+<!-- Display not login components -->
+<div *ngIf="!showNavigation" fxFill>
+  <router-outlet></router-outlet>
+</div>
