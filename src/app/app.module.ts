@@ -14,6 +14,9 @@ import { SidenavNavComponent } from './components/privileged-user/sidenav-nav/si
 import { SidenavMenusComponent } from './components/privileged-user/sidenav-menus/sidenav-menus.component';
 import { ConfirmTokenComponent } from './components/confirm-token/confirm-token.component';
 import {PermissionService} from './services/permissionService/permission.service';
+import { EditorRequestRequestComponent } from './components/editor-request-request/editor-request-request.component';
+import { RootComponent } from './components/root/root.component';
+import { ViewPublicQuizzesComponent } from './components/view-public-quizzes/view-public-quizzes.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import {PermissionService} from './services/permissionService/permission.service
     SignUpComponent,
     SidenavNavComponent,
     SidenavMenusComponent,
-    ConfirmTokenComponent
+    ConfirmTokenComponent,
+    EditorRequestRequestComponent,
+    RootComponent,
+    ViewPublicQuizzesComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,7 @@ import {PermissionService} from './services/permissionService/permission.service
     UserService,
     PermissionService
   ],
-  bootstrap: [SidenavNavComponent]
+  bootstrap: [RootComponent]
 })
 export class AppModule { }
 

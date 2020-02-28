@@ -163,7 +163,7 @@ export class UserService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (state.url === '/login' || state.url === '/sign-up' || state.url.match('^\/confirm-token\/([A-Z0-9a-z-]+)$')) {
       if (this.sessionIsActive()) {
-        this.router.navigate(['']).then( action => {
+        this.router.navigate(['home']).then( action => {
           this.logger.debug('Session is active, go to HOME', action);
           return false;
         });
@@ -175,7 +175,7 @@ export class UserService implements CanActivate {
           return false;
         });
       }
-      return false;
+      return true;
     }
     return true;
   }

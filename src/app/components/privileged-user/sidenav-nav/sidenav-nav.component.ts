@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../services/userService/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidenav-nav',
@@ -8,8 +9,9 @@ import {UserService} from '../../../services/userService/user.service';
 })
 export class SidenavNavComponent implements OnInit {
   public showNavigation: boolean;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.showNavigation = userService.sessionIsActive();
+    this.router.events.subscribe((val) => this.showNavigation = userService.sessionIsActive());
   }
 
   ngOnInit() {
