@@ -9,7 +9,7 @@ app.use(express.static(__dirname + 'dist/MurcyFrontEnd'));
 
 app.get('/*', function(req,res) {
     
-res.sendFile(join(__dirname+'dist/MurcyFrontEnd/index.html'));
+res.sendFile(path.join(__dirname+'dist/MurcyFrontEnd/index.html'));
 });
 
 // Start the app by listening on the default Heroku port
