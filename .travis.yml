@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+- '12'
+dist: trusty
+sudo: required
+env:
+  global:
+  - secure: sxAnZsDVD30HSsTkwwDzIrgck5leWVdvHSLvxR3q0SJhfe5thtubliB+2TimVwUJWMFZVuWwXhPCOaR07lcUYZ9DACkfrrWC2nwebsbQguljAE3cmXxDrOUduOf5YTsCCd1R98w/o1u/FF9rQIMdn7dNt4GB9Bi300DG2ME+Stra4pSR5DnPvPNBwLEblUnIou7Gw0SlwoxQDi7h/hl6O0wmlmcDHYGUBCiJivMSt/F2mBckuNizClWjyDYp6EXcLaGx6VllL09lV5FMYvnRndtROtdzDzJrZFCmU9YryDfqJJjF+sL+N3iw3aeC9Jw66e/IN+GwdujwHXzEdHKioNy9RohcDWT0rcXCGbzqNMkEEq5NEXhg6rU6UeAzYa1kNqh7F3SL6wj0TXbyft0MmUanY7+fpULAsLJcnYa71us9y1nkeH+ICzbt/tTwFkV3t6uB5U1bhIm10tuVzpGNATuIG50WtGTxrUsM/zoVBXp+QABdCakeQikaqK1IUUq0DHx+qVxWK/g6umAw9af3gmFYvIsWmCUKr/ZIuKB2uaKB0I3j5JOUNQJINLEMdkx3zTR7+lE/ZhdaVrxbrK6doa7T8nm5e/Cbr5/L1UVLMY6rsFnBo7y27nT+eEQbhvVdk9p8pLUUIHFLIIDnGxYtQBVzMkmPbVr3yY5j61Jjj2M=
+  - secure: S19u2vsnPp+edqmtDvkSXT6Wtsyh/7JQl2jMQtS4HqMgtQCsDnbD1YjtVSTMAXpVPlDaxjtBnH5ZmPtK6bWNTjtY9gz0XXUfDDFSC+HjmitvIwvaohT27bbB+PFXCSdvM0l3DiuKH9jtgi1ArOsfmdO1u/f0brHpBsJklJ1XVyKvs2zFKC4G1spgz761j8oOgl0eTD9YwUARv0tO4rp+6R02Pnekc8BuCz4FVh7OMvof2I0q8efY5a0cmDvy4GGaDHPnLk5K26W6B5TRjZRZ7KbjGgqAH8MxpvjCJKDTO7yWe2gXuK6/si0gF/gkwnO28skQohpcLyyHDomd2J3lsxSwTh4OUpgm+vS1WaWNgyJP3LG0usXweaAl3XjkH/I1EEvvwfLJAsz3LWOPTntVARzy2gUQp5hF/MXzNdNQOX58kxgsZea448L8kfhpzRx52cv7lbCpRENuReUKB8tu3ndWarU72GFlRCSA2eg38LCZT/yfM7QAqE5mk+9vkqVcw22As9+H1Ju2Vtl1buXowk+p/3I3td4EHZpOF2LXLluHptmU5tTDag5LS9nWuIbjC+kIMDq7hRUQkrR6lRS6EeazDHWWwUyaiKSmj1mon1vtgqoBMFooOEpl+ZW4io4POxtYIhSwU5NXqybstf+DG7UnvHbJ85+/j88sNdgI3SY=
+addons:
+  chrome: stable
+  sonarcloud:
+    organization: jorgerambla
+    token:
+      secure: "$SONAR_TOKEN"
+before_script:
+- npm install -g --silent @angular/cli@8.3.20
+script:
+- ng lint
+- sonar-scanner
+- npm run builpro
+deploy:
+  provider: heroku
+  api_key: "$HEROKU_API_KEY"
+  app:
+    master: murcy
+    develop: pre-murcy
