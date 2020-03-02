@@ -18,10 +18,3 @@ before_script:
 script:
 - ng lint
 - sonar-scanner
-- npm run buildpro
-deploy:
-  provider: heroku
-  api_key: "$HEROKU_API_KEY"
-  app:
-    master: murcy
-    develop: pre-murcy

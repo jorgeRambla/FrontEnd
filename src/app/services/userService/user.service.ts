@@ -156,7 +156,7 @@ export class UserService implements CanActivate {
   }
 
   public sessionIsActive(): boolean {
-    //TODO: complete this method
+    // TODO: complete this method
     return localStorage.getItem('jsonToken') !== null;
   }
 
