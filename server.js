@@ -1,7 +1,6 @@
-
-// Install express server
-import express, { static } from 'express';
-import { join } from 'path';
+//Install express server
+const express = require('express');
+const path = require('path');
 
 const app = express();
 
