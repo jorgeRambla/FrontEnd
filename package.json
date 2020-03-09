@@ -6,7 +6,7 @@
     "serve": "ng serve",
     "start": "node server.js",
     "build": "ng build",
-    "postinstall": "./build.sh",
+    "heroku-postbuild": "./build.sh",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
