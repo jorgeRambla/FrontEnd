@@ -16,6 +16,7 @@ build_based_on_env_var()
             # Replace app name for staging
             echo 'Renaming murcy application to staging name'
             sed -i 's+Murcy+Staging-Murcy+g' src/manifest.webmanifest
+            sed -i 's+Murcy+Staging-Murcy+g' src/index.html
             echo 'Building staging enviroment'
             ng build --configuration=staging
             break
