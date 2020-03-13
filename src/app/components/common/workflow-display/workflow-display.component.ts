@@ -7,7 +7,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
   templateUrl: './workflow-display.component.html',
   styleUrls: ['./workflow-display.component.scss']
 })
-export class WorkflowDisplayComponent implements OnInit, OnDestroy {
+export class WorkflowDisplayComponent implements OnChanges, OnDestroy {
 
   @Input() private workflow: WorkflowModel = null;
   @Input() public lastWorkflow: WorkflowModel = null;
@@ -23,7 +23,8 @@ export class WorkflowDisplayComponent implements OnInit, OnDestroy {
     this.mobileQuery.addEventListener('change', this.mobileQueryListener);
   }
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.workflowModels = [];
     while (this.workflow != null && this.workflow.nextWorkflow != null) {
       this.workflowModels.push(this.workflow);
       this.workflow = this.workflow.nextWorkflow;
