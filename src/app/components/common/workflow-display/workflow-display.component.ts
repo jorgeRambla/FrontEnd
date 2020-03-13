@@ -9,7 +9,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
 })
 export class WorkflowDisplayComponent implements OnChanges, OnDestroy {
 
-  @Input() private workflow: WorkflowModel = null;
+  @Input() public workflow: WorkflowModel = null;
   @Input() public lastWorkflow: WorkflowModel = null;
   public mobileQuery: MediaQueryList;
 
