@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {TokenModel} from '../../model/Token.model';
 import {LoggerService} from '../shared/logger.service';
@@ -36,6 +36,13 @@ export class UserService implements CanActivate {
 
   public static getUserId(): number {
     return Number(localStorage.getItem('user.id'));
+  }
+
+  public checkUserIsAuthorized(error: HttpErrorResponse): void {
+    if (error.status === 401) {
+      // TODO: If user want to extend session auto restore with new session
+      UserService.removeSessionData();
+    }
   }
 
   public getAuthHttpHeader(): HttpHeaders {

@@ -17,6 +17,7 @@ import {PermissionService} from './services/permissionService/permission.service
 import { EditorRequestRequestComponent } from './components/editor-request-request/editor-request-request.component';
 import { RootComponent } from './components/root/root.component';
 import { ViewPublicQuizzesComponent } from './components/view-public-quizzes/view-public-quizzes.component';
+import { WorkflowDisplayComponent } from './components/common/workflow-display/workflow-display.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ViewPublicQuizzesComponent } from './components/view-public-quizzes/vie
     ConfirmTokenComponent,
     EditorRequestRequestComponent,
     RootComponent,
-    ViewPublicQuizzesComponent
+    ViewPublicQuizzesComponent,
+    WorkflowDisplayComponent
   ],
   imports: [
     BrowserModule,

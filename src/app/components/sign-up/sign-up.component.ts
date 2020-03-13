@@ -34,6 +34,7 @@ export class SignUpComponent implements OnInit {
 
   // TODO: Add username already exists validator
   // TODO: Add email already exists validator
+  // TODO: Add Password is not secure Validator
 
   public submitSignUpForm(): void {
     if (this.registerForm.get('username').valid && this.registerForm.get('password').valid

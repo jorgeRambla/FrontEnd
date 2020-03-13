@@ -1,0 +1,24 @@
+div.workflow-display {
+  span.workflow-status {
+    margin-right: 10vh;
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    font-weight: bolder;
+
+    &.approved {
+      border: 1px solid green;
+      color: green;
+    }
+
+    &.denied {
+      border: 1px solid red;
+      color: red;
+    }
+
+    &.pending {
+      border: 1px solid grey;
+      color: grey;
+    }
+  }
+}

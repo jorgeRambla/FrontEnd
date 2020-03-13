@@ -1,0 +1,35 @@
+<div class="workflow-display" *ngIf="workflow != null">
+  <mat-accordion>
+    <div *ngFor="let loopWorkflow of workflowModels">
+      <mat-expansion-panel [expanded]="lastWorkflow != null && loopWorkflow.id == lastWorkflow.id">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{loopWorkflow.id}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{loopWorkflow.title}}
+          </mat-panel-description>
+          <span class="workflow-status {{loopWorkflow.status.toString().toLowerCase()}}" *ngIf="!mobileQuery.matches">
+            {{loopWorkflow.status}}
+          </span>
+        </mat-expansion-panel-header>
+        <mat-card>
+          <mat-list>
+            <mat-list-item>
+              <div *ngIf="loopWorkflow.description != null && loopWorkflow.description.length > 0">
+                you: {{loopWorkflow.description}}
+              </div>
+              <div *ngIf="loopWorkflow.description == null || loopWorkflow.description.length <= 0">
+                you: No description provided
+              </div>
+            </mat-list-item>
+            <mat-divider *ngIf="loopWorkflow.response != null && loopWorkflow.response.length > 0"></mat-divider>
+            <mat-list-item *ngIf="loopWorkflow.response != null && loopWorkflow.response.length > 0">
+              {{loopWorkflow.statusBy}}: {{loopWorkflow.response}}
+            </mat-list-item>
+          </mat-list>
+        </mat-card>
+      </mat-expansion-panel>
+    </div>
+  </mat-accordion>
+</div>
