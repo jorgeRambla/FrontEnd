@@ -60,13 +60,15 @@ export class EditorRequestRequestComponent implements OnInit {
       if (this.editorRequest == null || this.editorRequest.closed) {
         this.requestService.createEditorRequest(this.editorRequestForm.get('description').value)
           .then(() => {
-            this.ngOnInit();
+            this.retrieveDataAndLoadConfig();
+            this.editorRequestForm.reset();
           })
           .catch();
       } else {
         this.requestService.updateEditorRequest(this.editorRequestForm.get('description').value)
           .then(() => {
-            this.ngOnInit();
+            this.retrieveDataAndLoadConfig();
+            this.editorRequestForm.reset();
           })
           .catch();
       }
