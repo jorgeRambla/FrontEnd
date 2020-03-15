@@ -1,6 +1,7 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnChanges, OnDestroy} from '@angular/core';
 import {WorkflowModel} from '../../../model/workflow/Workflow.model';
 import {MediaMatcher} from '@angular/cdk/layout';
+import {WorkflowStatusModel} from '../../../model/workflow/WorkflowStatus.model';
 
 @Component({
   selector: 'app-workflow-display',
@@ -38,4 +39,7 @@ export class WorkflowDisplayComponent implements OnChanges, OnDestroy {
     this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
   }
 
+  public lastWorkflowIsApproved(): boolean {
+    return this.lastWorkflow.status === WorkflowStatusModel.APPROVED;
+  }
 }

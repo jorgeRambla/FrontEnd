@@ -23,7 +23,8 @@
     </ng-template>
   </mat-expansion-panel>
 
-  <mat-expansion-panel *ngIf="hasUserPermission">
+  <!--  User and editor request (only appliers)-->
+  <mat-expansion-panel *ngIf="hasUserPermission && (!hasAdminPermission || !hasReviewerPermission)">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Requests
@@ -35,6 +36,19 @@
       <a mat-list-item routerLink="." *ngIf="hasEditorPermission">Active requests</a>
     </ng-template>
   </mat-expansion-panel>
+  <mat-expansion-panel *ngIf="hasReviewerPermission">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Requests manager
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <a mat-list-item routerLink="manage-requests-editor" *ngIf="hasAdminPermission">New editors</a>
+      <a mat-list-item routerLink="manage-requests" *ngIf="hasReviewerPermission">Requests</a>
+    </ng-template>
+  </mat-expansion-panel>
+
 </mat-accordion>
 
 

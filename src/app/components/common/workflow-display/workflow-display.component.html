@@ -1,7 +1,7 @@
 <div class="workflow-display" *ngIf="workflow != null">
   <mat-accordion>
     <div *ngFor="let loopWorkflow of workflowModels">
-      <mat-expansion-panel [expanded]="lastWorkflow != null && loopWorkflow.id == lastWorkflow.id">
+      <mat-expansion-panel [expanded]="lastWorkflow != null && loopWorkflow.id == lastWorkflow.id && !lastWorkflowIsApproved()">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{loopWorkflow.id}}

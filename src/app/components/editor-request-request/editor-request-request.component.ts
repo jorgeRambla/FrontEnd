@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserService} from '../../services/userService/user.service';
 import {LoggerService} from '../../services/shared/logger.service';
 import {Router} from '@angular/router';
@@ -19,7 +19,7 @@ export class EditorRequestRequestComponent implements OnInit {
   previousRequestIsClosed: boolean;
   previousRequestIsApproved: boolean;
   editorRequest: EditorRequestModel;
-  @ViewChild(WorkflowDisplayComponent, { static: false }) childC: WorkflowDisplayComponent;
+  @ViewChild(WorkflowDisplayComponent, { static: false }) workflowDisplayComponent: WorkflowDisplayComponent;
 
 
   constructor(private logger: LoggerService, private requestService: RequestService, private userService: UserService,

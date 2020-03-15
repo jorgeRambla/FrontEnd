@@ -5,19 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import {MaterialModule} from './material.module';
-import {UserService} from './services/userService/user.service';
-import {HttpClientModule} from '@angular/common/http';
+import { MaterialModule } from './material.module';
+import { UserService } from './services/userService/user.service';
+import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SidenavNavComponent } from './components/privileged-user/sidenav-nav/sidenav-nav.component';
 import { SidenavMenusComponent } from './components/privileged-user/sidenav-menus/sidenav-menus.component';
 import { ConfirmTokenComponent } from './components/confirm-token/confirm-token.component';
-import {PermissionService} from './services/permissionService/permission.service';
+import { PermissionService } from './services/permissionService/permission.service';
 import { EditorRequestRequestComponent } from './components/editor-request-request/editor-request-request.component';
 import { RootComponent } from './components/root/root.component';
 import { ViewPublicQuizzesComponent } from './components/view-public-quizzes/view-public-quizzes.component';
 import { WorkflowDisplayComponent } from './components/common/workflow-display/workflow-display.component';
+import { WorkflowManageDisplayComponent } from './components/common/workflow-manage-display/workflow-manage-display.component';
+import { EditorRequestManageComponent } from './components/editor-request-manage/editor-request-manage.component';
+import { GameComponentsRequestManagerComponent } from './components/game-request-manager/game-components-request-manager.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { WorkflowDisplayComponent } from './components/common/workflow-display/w
     EditorRequestRequestComponent,
     RootComponent,
     ViewPublicQuizzesComponent,
-    WorkflowDisplayComponent
+    WorkflowDisplayComponent,
+    WorkflowManageDisplayComponent,
+    EditorRequestManageComponent,
+    GameComponentsRequestManagerComponent
   ],
   imports: [
     BrowserModule,
