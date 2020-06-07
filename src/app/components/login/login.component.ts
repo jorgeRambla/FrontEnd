@@ -3,6 +3,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {UserService} from '../../services/userService/user.service';
 import {LoggerService} from '../../services/shared/logger.service';
 import {Router} from '@angular/router';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+
   public submitLoginForm(): void {
     if (this.username.valid && this.password.valid) {
       this.userService.login(this.username.value, this.password.value)
@@ -26,7 +28,25 @@ export class LoginComponent implements OnInit {
           });
         })
         .catch(error => {
-          this.logger.error('', error);
+          switch ((error as HttpErrorResponse).status) {
+            case 403:
+              this.username.setErrors({forbidden: true});
+              this.password.setErrors({forbidden: true});
+              this.logger.debug('user login FORBIDDEN');
+              break;
+            case 401:
+              this.username.setErrors({invalid: true});
+              this.password.setErrors({invalid: true});
+              this.logger.debug('user login UNAUTHORIZED');
+              break;
+            case 500:
+              this.username.setErrors({server_error: true});
+              this.password.setErrors({server_error: true});
+              this.logger.debug('user login SERVER_ERROR');
+              break;
+            default:
+              break;
+          }
         });
     }
   }

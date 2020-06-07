@@ -10,14 +10,17 @@
     <form class="sign-up-form" (ngSubmit)="submitSignUpForm()" [formGroup]="registerForm">
       <mat-card-content>
         <mat-form-field class="input-full-width">
-          <input matInput placeholder="Username" formControlName="username" (keydown.space)="$event.preventDefault();">
+          <input matInput id="sign-up-username" placeholder="Username" formControlName="username" (keydown.space)="$event.preventDefault();">
           <mat-error *ngIf="form().username.getError('required')">
             Username is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="form().username.getError('unique_username')">
+            This username is already in use
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="input-full-width">
-          <input matInput type="email" placeholder="Email" formControlName="email"
+          <input matInput id="sign-up-email" type="email" placeholder="Email" formControlName="email"
                  (keydown.space)="$event.preventDefault();">
           <mat-error *ngIf="form().email.getError('required')">
             Email is <strong>required</strong>
@@ -25,10 +28,13 @@
           <mat-error *ngIf="form().email.getError('email')">
             Email is <strong>not valid</strong>
           </mat-error>
+          <mat-error *ngIf="form().email.getError('unique_email')">
+            This email is already in use
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="input-full-width">
-          <input matInput type="password" placeholder="Password" formControlName="password"
+          <input matInput id="sign-up-password" type="password" placeholder="Password" formControlName="password"
                  (keydown.space)="$event.preventDefault();">
           <mat-error *ngIf="form().password.getError('required')">
             Password is <strong>required</strong>
@@ -36,7 +42,7 @@
         </mat-form-field>
 
         <mat-form-field class="input-full-width">
-          <input matInput type="password" placeholder="Repeat password" formControlName="passwordRepeat"
+          <input matInput id="sign-up-repeat-password" type="password" placeholder="Repeat password" formControlName="passwordRepeat"
                  (keydown.space)="$event.preventDefault();">
           <mat-error *ngIf="form().passwordRepeat.getError('required')">
             Repeat password is <strong>required</strong>
@@ -47,7 +53,7 @@
         </mat-form-field>
 
         <mat-form-field class="input-full-width">
-          <input matInput placeholder="Full name" formControlName="fullName">
+          <input matInput id="sign-up-full-name" placeholder="Full name" formControlName="fullName">
           <mat-error *ngIf="form().fullName.getError('required')">
             Full name is <strong>required</strong>
           </mat-error>

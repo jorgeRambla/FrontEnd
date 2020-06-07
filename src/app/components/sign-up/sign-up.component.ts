@@ -4,6 +4,7 @@ import {UserService} from '../../services/userService/user.service';
 import {LoggerService} from '../../services/shared/logger.service';
 import {Router} from '@angular/router';
 import {MustMatch} from '../../utils/form.utilities';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -46,9 +47,28 @@ export class SignUpComponent implements OnInit {
             this.logger.debug('Navigate from register to HOME');
           });
         })
-        .catch(error => {
-          this.logger.info('', error);
+        .catch(unCastedError => {
+          const error = unCastedError as HttpErrorResponse;
+          if (error.status === 400) {
+            if (error.error.message === 'email is not valid') {
+              this.registerForm.get('email').setErrors({email: true});
+              this.logger.debug('BAD_REQUEST: email is not valid');
+            } else if (error.error.message  === 'already exists other user with that username') {
+              this.registerForm.get('username').setErrors({unique_username: true});
+              this.logger.debug('BAD_REQUEST: already exists other user with that username');
+            } else if (error.error.message  === 'already exists other user with that email') {
+              this.registerForm.get('email').setErrors({unique_email: true});
+              this.logger.debug('BAD_REQUEST: already exists other user with that email');
+            } else {
+              this.logger.debug('BAD_REQUEST: unknown error', error);
+            }
+          } else if (error.status / 5 === 5) {
+            this.logger.debug('Server error');
+          } else {
+            this.logger.debug('unknown error');
+          }
         });
     }
   }
 }
+

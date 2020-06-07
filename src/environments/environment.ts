@@ -2,8 +2,7 @@ import {LogLevel} from '../app/services/shared/LogLevel';
 
 export const environment = {
   production: false,
-  baseAPIUrl: 'http://localhost:8090/api/',
-  // baseAPIUrl: 'https://unizar-30248-2019-murcy.herokuapp.com/api/',
+  baseAPIUrl: 'http://localhost:8080/api/',
   logger: {
     level: LogLevel.All,
     printDate: true

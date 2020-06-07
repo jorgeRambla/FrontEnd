@@ -1,6 +1,6 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
   <mat-card class="box">
-    <img class="logo" src="../../../assets/icons/icon-512x512.png"/>
+    <img class="logo" src="../../../assets/icons/icon-512x512.png" alt="Logotype"/>
     <mat-card-header>
       <mat-card-title>Log in</mat-card-title>
     </mat-card-header>
@@ -9,10 +9,20 @@
       <mat-card-content>
         <mat-form-field class="input-full-width">
           <input matInput placeholder="Username" [formControl]="username" (keydown.space)="$event.preventDefault();">
+          <mat-error *ngIf="username.errors.invalid">
+          </mat-error>
+          <mat-error *ngIf="username.errors.forbidden">
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="input-full-width">
           <input matInput type="password" placeholder="Password" [formControl]="password" (keydown.space)="$event.preventDefault();">
+          <mat-error *ngIf="password.errors.invalid">
+            The username or password is not correct
+          </mat-error>
+          <mat-error *ngIf="password.errors.forbidden">
+            The username doesn't exists
+          </mat-error>
         </mat-form-field>
       </mat-card-content>
       <button mat-stroked-button color="primary" class="btn-block">Log in</button>
