@@ -1,4 +1,28 @@
 div.workflow-display {
+
+  mat-expansion-panel {
+    margin-bottom: 12px;
+  }
+
+  mat-card.workflow-display-description {
+    box-shadow: -8px 0px 0px 1px rgba(0,0,0,1);
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+
+  mat-card.workflow-display-response {
+    &.approved {
+      box-shadow: inset -8px 0px 0px 1px rgba(0,255,0,1);
+    }
+
+    &.denied {
+      box-shadow: inset -8px 0px 0px 1px rgba(255,0,0,1);
+    }
+    margin-bottom: 12px;
+    text-align: right;
+    padding: 8px 20px 8px 8px;
+  }
+
   span.workflow-status {
     margin-right: 10vh;
     display: inline-block;

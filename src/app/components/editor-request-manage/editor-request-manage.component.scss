@@ -1,77 +1,76 @@
-/* Structure */
-.example-container {
-  position: relative;
-  min-height: 200px;
-}
-
-.example-table-container {
-  position: relative;
-  max-height: 400px;
-  overflow: auto;
-}
-
-table {
-  width: 100%;
-}
-
-.example-loading-shade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 56px;
-  right: 0;
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
+div.editor-request-manage-container {
+  margin-top: 2%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  table.editor-request-table {
+    min-width: 75%;
+    max-width: 300px;
+    width: 100%;
+
+    tr.request-item-detail-row {
+      height: 0;
+    }
+
+    tr.request-element-row:not(.request-expanded-row):hover {
+      background: whitesmoke;
+    }
+
+    tr.request-element-row:not(.request-expanded-row):active {
+      background: #efefef;
+    }
+
+    .request-element-row {
+      td {
+        border-bottom-width: 0;
+      }
+      td.status {
+        margin-right: 10vh;
+        margin-top: 10px;
+        display: inline-block;
+        padding: 5px 10px 5px 10px;
+        border-radius: 2px;
+        font-weight: bolder;
+        &.approved {
+          border: 1px solid green;
+          color: green;
+        }
+
+        &.denied {
+          border: 1px solid red;
+          color: red;
+        }
+
+        &.pending {
+          border: 1px solid grey;
+          color: grey;
+        }
+      }
+    }
+
+    .request-item-detail {
+      overflow: hidden;
+      display: flex;
+
+      div.request-item-detail-workflow {
+        min-width: 75%;
+        padding: 8px;
+        margin: 8px 0;
+
+        app-workflow-manage-display {
+          max-width: 300px;
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 
-.example-rate-limit-reached {
-  color: #980000;
-  max-width: 360px;
-  text-align: center;
-}
-
-/* Column Widths */
-.mat-column-number,
-.mat-column-state {
-  max-width: 64px;
-}
-
-.mat-column-created {
-  max-width: 124px;
-}
-
-table {
-  width: 100%;
-}
-
-tr.example-detail-row {
-  height: 0;
-}
-
-tr.example-element-row:not(.example-expanded-row):hover {
-  background: whitesmoke;
-}
-
-tr.example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
-}
-
-.example-element-row td {
-  border-bottom-width: 0;
-}
-
-.example-element-detail {
-  overflow: hidden;
+mat-paginator {
+  margin-top: 2%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
 }
-
-.example-element-diagram {
-  min-width: 80px;
-  padding: 8px;
-  margin: 8px 0;
-  height: 104px;
-}
-

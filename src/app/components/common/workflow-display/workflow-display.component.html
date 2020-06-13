@@ -3,9 +3,6 @@
     <div *ngFor="let loopWorkflow of workflowModels">
       <mat-expansion-panel [expanded]="lastWorkflow != null && loopWorkflow.id == lastWorkflow.id && !lastWorkflowIsApproved()">
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{loopWorkflow.id}}
-          </mat-panel-title>
           <mat-panel-description>
             {{loopWorkflow.title}}
           </mat-panel-description>
@@ -13,7 +10,20 @@
             {{loopWorkflow.status}}
           </span>
         </mat-expansion-panel-header>
-        <mat-card>
+        <mat-card class="workflow-display-description">
+          <div *ngIf="loopWorkflow.description != null && loopWorkflow.description.length > 0">
+            you: {{loopWorkflow.description}}
+          </div>
+          <div *ngIf="loopWorkflow.description == null || loopWorkflow.description.length <= 0">
+            you: No description provided
+          </div>
+        </mat-card>
+        <mat-card [ngClass]="['workflow-display-response', loopWorkflow.status.toString().toLowerCase()]" *ngIf="loopWorkflow.response != null && loopWorkflow.response.length > 0">
+          <div>
+            {{loopWorkflow.statusBy}}: {{loopWorkflow.response}}
+          </div>
+        </mat-card>
+        <!--<mat-card class="workflow-display-log">
           <mat-list>
             <mat-list-item>
               <div *ngIf="loopWorkflow.description != null && loopWorkflow.description.length > 0">
@@ -28,7 +38,7 @@
               {{loopWorkflow.statusBy}}: {{loopWorkflow.response}}
             </mat-list-item>
           </mat-list>
-        </mat-card>
+        </mat-card>-->
       </mat-expansion-panel>
     </div>
   </mat-accordion>

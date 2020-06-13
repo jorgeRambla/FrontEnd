@@ -5,6 +5,7 @@ import {LoggerService} from '../shared/logger.service';
 import {environment} from '../../../environments/environment';
 import {EditorRequestModel} from '../../model/EditorRequest/EditorRequest.model';
 import {WorkflowStatusModel} from '../../model/workflow/WorkflowStatus.model';
+import {PageableCollectionModel} from '../../model/PageableCollection.model';
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +81,33 @@ export class RequestService {
       .toPromise()
       .then(data => {
         return data as EditorRequestModel[];
+      })
+      .catch(error => {
+        this.logger.debug('Cannot fetch editor request list', error);
+        throw error;
+      });
+  }
+
+  public getEditorRequestsPaging(closed: boolean = false, approved: boolean = false, page: number, size: number
+                                 /*, sortColumn: string, sortType: string*/,
+                                 requestStatus?: WorkflowStatusModel[]): Promise<PageableCollectionModel<EditorRequestModel>> {
+    return this.http.get(
+      this.baseAPIUrl.concat('/editor/list'), {
+        headers: this.userService.getAuthHttpHeader(),
+        params: {
+          closed: String(closed),
+          approved: String(approved),
+          requestStatus: String(requestStatus),
+          page: String(page),
+          size: String(size)/*,
+          sortColumn: String(sortColumn),
+          sortType: String(sortType)*/
+        }
+      }
+    )
+      .toPromise()
+      .then(data => {
+        return data as PageableCollectionModel<EditorRequestModel>;
       })
       .catch(error => {
         this.logger.debug('Cannot fetch editor request list', error);

@@ -34,21 +34,28 @@ export class EditorRequestManageComponent implements AfterViewInit {
     // TODO: add from to in request
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    this.requestService.getEditorRequests(false, false)
+    this.requestService.getEditorRequestsPaging(false, false, this.paginator.pageIndex, this.paginator.pageSize)
       .then(data => {
+        this.editorRequests = data.data;
         this.resultsLength = data.length;
-        this.editorRequests = data.slice(this.paginator.pageIndex * this.paginator.pageSize,
-          this.paginator.pageIndex * this.paginator.pageSize + this.paginator.pageSize);
+      })
+      .catch();
+  }
+
+  public childUpdateList() {
+    this.requestService.getEditorRequestsPaging(false, false, this.paginator.pageIndex, this.paginator.pageSize)
+      .then(data => {
+        this.editorRequests = data.data;
+        this.resultsLength = data.length;
       })
       .catch();
   }
 
   public refreshData(event?: PageEvent) {
-    this.requestService.getEditorRequests(false, false)
+    this.requestService.getEditorRequestsPaging(false, false, event.pageIndex, event.pageSize)
       .then(data => {
+        this.editorRequests = data.data;
         this.resultsLength = data.length;
-        this.editorRequests = data.slice(event.pageIndex * event.pageSize,
-          event.pageIndex * event.pageSize + event.pageSize);
       })
       .catch();
   }

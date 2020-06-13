@@ -1,1 +1,33 @@
-<p>workflow-manage-display works!</p>
+<div class="workflow-manage-display">
+  <div *ngFor="let loopWorkflow of workflowModels">
+    <mat-card class="workflow-display-description">
+      <div *ngIf="loopWorkflow.description != null && loopWorkflow.description.length > 0">
+        you: {{loopWorkflow.description}}
+      </div>
+      <div *ngIf="loopWorkflow.description == null || loopWorkflow.description.length <= 0">
+        you: No description provided
+      </div>
+    </mat-card>
+    <mat-card [ngClass]="['workflow-display-response', loopWorkflow.status.toString().toLowerCase()]" *ngIf="loopWorkflow.response != null && loopWorkflow.response.length > 0">
+      <div>
+        {{loopWorkflow.statusBy}}: {{loopWorkflow.response}}
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="workflow-manage-display-manage">
+    <form [formGroup]="editorRequestManageForm" (ngSubmit)="approve()" class="manage-form">
+      <mat-form-field class="full-width">
+        <label>
+          <textarea matInput formControlName="response" placeholder="Set new response to request" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' maxlength="1024" *ngIf="isNew"></textarea>
+          <textarea matInput formControlName="response" placeholder="Change last your last response in this request" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' maxlength="1024" *ngIf="!isNew"></textarea>
+        </label>
+      </mat-form-field>
+
+      <div class="button-row">
+        <button class="approve" type="submit" mat-raised-button [disabled]="!editorRequestManageForm.valid">Approve</button>
+        <button class="deny" type="button" mat-raised-button (click)="deny()" [disabled]="!editorRequestManageForm.valid">Deny</button>
+      </div>
+    </form>
+  </div>
+</div>
