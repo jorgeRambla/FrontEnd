@@ -1,8 +1,35 @@
+<div class="editor-request-manage-filter">
+  <form [formGroup]="filterForm">
+    <mat-form-field>
+      <mat-label>Show editor requests</mat-label>
+      <mat-select formControlName="filter">
+        <mat-option value="all">All</mat-option>
+        <mat-option value="filtered">Filtered</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="filtered">
+      <mat-label>Show open or closed</mat-label>
+      <mat-select formControlName="openClosed">
+        <mat-option value="open">Open requests</mat-option>
+        <mat-option value="closed">Closed requests</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="closed">
+      <mat-label>Requests status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="approved">Approved requests</mat-option>
+        <mat-option value="denied">Denied requests</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
 <div class="editor-request-manage-container">
   <table [dataSource]="editorRequests" class="editor-request-table" mat-table
-         matSort matSortActive="id" matSortDirection="desc" matSortDisableClear multiTemplateDataRows>
+         matSort matSortActive="id" matSortDirection="asc" matSortDisableClear multiTemplateDataRows (matSortChange)="childUpdateList()">
+
     <ng-container matColumnDef="id">
-      <th mat-header-cell scope="col" *matHeaderCellDef mat-sort-header disableClear> ID </th>
+      <th mat-header-cell scope="col" *matHeaderCellDef mat-sort-header="createDate"> ID </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 

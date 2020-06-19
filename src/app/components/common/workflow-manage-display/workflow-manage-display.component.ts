@@ -4,7 +4,6 @@ import {MediaMatcher} from '@angular/cdk/layout';
 import {WorkflowStatusModel} from '../../../model/workflow/WorkflowStatus.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {WorkflowService} from '../../../services/workflowService/workflow.service';
-import {EditorRequestManageComponent} from '../../editor-request-manage/editor-request-manage.component';
 
 @Component({
   selector: 'app-workflow-manage-display',

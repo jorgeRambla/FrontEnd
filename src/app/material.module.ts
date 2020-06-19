@@ -16,7 +16,7 @@ import {
   MatExpansionModule,
   MatPaginatorModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule, MatSelectModule
 } from '@angular/material';
 
 @NgModule({
@@ -35,6 +35,7 @@ import {
     MatSortModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
@@ -55,6 +56,7 @@ import {
     MatSortModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,

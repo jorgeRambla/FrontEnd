@@ -88,20 +88,21 @@ export class RequestService {
       });
   }
 
-  public getEditorRequestsPaging(closed: boolean = false, approved: boolean = false, page: number, size: number
-                                 /*, sortColumn: string, sortType: string*/,
+  public getEditorRequestsPaging(all: boolean, closed: boolean, approved: boolean, page: number, size: number,
+                                 sortColumn: string, sortType: string,
                                  requestStatus?: WorkflowStatusModel[]): Promise<PageableCollectionModel<EditorRequestModel>> {
     return this.http.get(
       this.baseAPIUrl.concat('/editor/list'), {
         headers: this.userService.getAuthHttpHeader(),
         params: {
+          all: String(all),
           closed: String(closed),
           approved: String(approved),
           requestStatus: String(requestStatus),
           page: String(page),
-          size: String(size)/*,
+          size: String(size),
           sortColumn: String(sortColumn),
-          sortType: String(sortType)*/
+          sortType: String(sortType)
         }
       }
     )

@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {EditorRequestModel} from '../../model/EditorRequest/EditorRequest.model';
 import {LoggerService} from '../../services/shared/logger.service';
 import {RequestService} from '../../services/requestService/request.service';
 import {MatPaginator, MatSort, PageEvent} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-editor-request-manage',
@@ -17,33 +18,41 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
     ]),
   ]
 })
-export class EditorRequestManageComponent implements AfterViewInit {
+export class EditorRequestManageComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['id', 'title', 'status'];
   public editorRequests: EditorRequestModel[] = [];
   public expandedElement: EditorRequestModel | null;
+  public filterForm: FormGroup;
+  public filtered = true;
+  public closed = false;
+  private approved = false;
 
   public resultsLength = 0;
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private logger: LoggerService, private requestService: RequestService) {
+  constructor(private logger: LoggerService, private requestService: RequestService, private formBuilder: FormBuilder) {
+  }
+
+  ngOnInit(): void {
+    this.filterForm = this.formBuilder.group({
+      filter: ['filtered'],
+      openClosed: ['open'],
+      status: ['approved']
+    });
+    this.filterForm.valueChanges.subscribe(() => this.filter());
   }
 
   ngAfterViewInit(): void {
-    // TODO: add from to in request
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    this.requestService.getEditorRequestsPaging(false, false, this.paginator.pageIndex, this.paginator.pageSize)
-      .then(data => {
-        this.editorRequests = data.data;
-        this.resultsLength = data.length;
-      })
-      .catch();
+    this.childUpdateList();
   }
 
   public childUpdateList() {
-    this.requestService.getEditorRequestsPaging(false, false, this.paginator.pageIndex, this.paginator.pageSize)
+    this.requestService.getEditorRequestsPaging(!this.filtered, this.closed, this.approved, this.paginator.pageIndex,
+      this.paginator.pageSize, this.sort.active, this.sort.direction)
       .then(data => {
         this.editorRequests = data.data;
         this.resultsLength = data.length;
@@ -52,12 +61,37 @@ export class EditorRequestManageComponent implements AfterViewInit {
   }
 
   public refreshData(event?: PageEvent) {
-    this.requestService.getEditorRequestsPaging(false, false, event.pageIndex, event.pageSize)
+    this.requestService.getEditorRequestsPaging(!this.filtered, this.closed, this.approved, event.pageIndex, event.pageSize,
+      this.sort.active, this.sort.direction)
       .then(data => {
         this.editorRequests = data.data;
         this.resultsLength = data.length;
       })
       .catch();
+  }
+
+  public filter(): void {
+    // Reset Paginator
+    this.paginator.pageIndex = 0;
+
+    // Set request filters
+    if (this.filterForm.get('filter').value === 'all') {
+      this.filtered = false;
+      this.closed = false;
+      this.approved = false;
+    } else {
+      this.filtered = true;
+      if (this.filterForm.get('openClosed').value === 'open') {
+        this.closed = false;
+        this.approved = false;
+      } else {
+        this.closed = true;
+        this.approved = this.filterForm.get('status').value === 'approved';
+      }
+    }
+
+    // Refresh data
+    this.childUpdateList();
   }
 
 }
