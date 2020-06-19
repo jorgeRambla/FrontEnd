@@ -1,5 +1,5 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {UserService} from '../../services/userService/user.service';
+import {UserService} from '../../../services/userService/user.service';
 
 @Component({
   selector: 'app-root',

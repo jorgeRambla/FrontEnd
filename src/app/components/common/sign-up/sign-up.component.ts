@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {UserService} from '../../services/userService/user.service';
-import {LoggerService} from '../../services/shared/logger.service';
+import {UserService} from '../../../services/userService/user.service';
+import {LoggerService} from '../../../services/shared/logger.service';
 import {Router} from '@angular/router';
-import {MustMatch} from '../../utils/form.utilities';
+import {MustMatch} from '../../../utils/form.utilities';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({

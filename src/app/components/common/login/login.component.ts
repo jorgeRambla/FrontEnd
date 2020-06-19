@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-import {UserService} from '../../services/userService/user.service';
-import {LoggerService} from '../../services/shared/logger.service';
+import {UserService} from '../../../services/userService/user.service';
+import {LoggerService} from '../../../services/shared/logger.service';
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
 

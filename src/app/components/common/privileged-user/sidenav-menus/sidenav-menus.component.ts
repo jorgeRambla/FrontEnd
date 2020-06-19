@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {PermissionService} from '../../../services/permissionService/permission.service';
-import {LoggerService} from '../../../services/shared/logger.service';
+import {PermissionService} from '../../../../services/permissionService/permission.service';
+import {LoggerService} from '../../../../services/shared/logger.service';
 import {Router} from '@angular/router';
 
 @Component({

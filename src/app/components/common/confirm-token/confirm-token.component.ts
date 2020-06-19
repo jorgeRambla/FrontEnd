@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {LoggerService} from '../../services/shared/logger.service';
-import {UserService} from '../../services/userService/user.service';
+import {LoggerService} from '../../../services/shared/logger.service';
+import {UserService} from '../../../services/userService/user.service';
 
 @Component({
   selector: 'app-confirm-token',

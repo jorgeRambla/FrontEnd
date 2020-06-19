@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {EditorRequestModel} from '../../model/EditorRequest/EditorRequest.model';
-import {LoggerService} from '../../services/shared/logger.service';
-import {RequestService} from '../../services/requestService/request.service';
+import {EditorRequestModel} from '../../../model/EditorRequest/EditorRequest.model';
+import {LoggerService} from '../../../services/shared/logger.service';
+import {RequestService} from '../../../services/requestService/request.service';
 import {MatPaginator, MatSort, PageEvent} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {FormBuilder, FormGroup} from '@angular/forms';

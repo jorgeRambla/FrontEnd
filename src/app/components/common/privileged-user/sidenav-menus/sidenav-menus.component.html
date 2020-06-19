@@ -1,4 +1,5 @@
 <mat-accordion>
+  <!-- User manage panel -->
   <mat-expansion-panel *ngIf="hasUserPermission">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -10,7 +11,7 @@
       <a mat-list-item (click)="logout()">Logout</a>
     </ng-template>
   </mat-expansion-panel>
-
+  <!-- MURCY config, only available for admins-->
   <mat-expansion-panel *ngIf="hasAdminPermission">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -22,8 +23,7 @@
       <a mat-list-item routerLink=".">ADMIN CONF 1</a>
     </ng-template>
   </mat-expansion-panel>
-
-  <!--  User and editor request (only appliers)-->
+  <!-- User and editor request (only appliers)-->
   <mat-expansion-panel *ngIf="hasUserPermission && (!hasAdminPermission || !hasReviewerPermission)">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -36,6 +36,7 @@
       <a mat-list-item routerLink="." *ngIf="hasEditorPermission">Active requests</a>
     </ng-template>
   </mat-expansion-panel>
+  <!-- ADMIN panel, manage request-->
   <mat-expansion-panel *ngIf="hasReviewerPermission">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -46,6 +47,21 @@
     <ng-template matExpansionPanelContent>
       <a mat-list-item routerLink="manage-requests-editor" *ngIf="hasAdminPermission">New editors</a>
       <a mat-list-item routerLink="manage-requests" *ngIf="hasReviewerPermission">Requests</a>
+    </ng-template>
+  </mat-expansion-panel>
+  <!-- Editor panel to create quizzes -->
+  <mat-expansion-panel *ngIf="hasEditorPermission">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        My Quizzes
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <a mat-list-item routerLink="my-questions" *ngIf="hasEditorPermission">My questions</a>
+      <a mat-list-item routerLink="my-questions/new" *ngIf="hasEditorPermission">Create question</a>
+      <a mat-list-item routerLink="." *ngIf="hasEditorPermission">My quizzes</a>
+      <a mat-list-item routerLink="." *ngIf="hasEditorPermission">Create quiz</a>
     </ng-template>
   </mat-expansion-panel>
 

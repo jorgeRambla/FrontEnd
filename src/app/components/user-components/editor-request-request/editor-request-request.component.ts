@@ -1,12 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {UserService} from '../../services/userService/user.service';
-import {LoggerService} from '../../services/shared/logger.service';
+import {UserService} from '../../../services/userService/user.service';
+import {LoggerService} from '../../../services/shared/logger.service';
 import {Router} from '@angular/router';
-import {RequestService} from '../../services/requestService/request.service';
+import {RequestService} from '../../../services/requestService/request.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {EditorRequestModel} from '../../model/EditorRequest/EditorRequest.model';
-import {WorkflowDisplayComponent} from '../common/workflow-display/workflow-display.component';
+import {EditorRequestModel} from '../../../model/EditorRequest/EditorRequest.model';
+import {WorkflowDisplayComponent} from '../../common/workflow-display/workflow-display.component';
 
 @Component({
   selector: 'app-editor-request-request',
