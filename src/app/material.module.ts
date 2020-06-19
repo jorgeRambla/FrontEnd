@@ -18,6 +18,7 @@ import {
   MatSortModule,
   MatTableModule, MatSelectModule
 } from '@angular/material';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import {
     MatTableModule,
     MatPaginatorModule,
     MatSelectModule,
+    DragDropModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
@@ -57,6 +59,7 @@ import {
     MatTableModule,
     MatPaginatorModule,
     MatSelectModule,
+    DragDropModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,

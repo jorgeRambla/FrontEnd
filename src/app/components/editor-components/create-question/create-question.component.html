@@ -1,1 +1,39 @@
-<p>create-question works!</p>
+<div [ngClass]="['create-question-container', popup ? '' : 'normal']">
+  <form [formGroup]="questionForm" class="create-question-form">
+    <mat-form-field class="question">
+      <label>
+        <textarea matInput formControlName="question" placeholder="Create here your amazing question" maxlength="256"></textarea>
+      </label>
+    </mat-form-field>
+
+    <div cdkDropList class="options-container" (cdkDropListDropped)="drop($event)">
+      <div *ngFor="let item of optionsNumbers" cdkDrag>
+        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+        <mat-form-field class="option">
+          <label>
+            <input matInput #Options placeholder="Write the option text"  type="text" formControlName="option{{item}}">
+            <mat-error *ngIf="this.questionForm.get('option' + item).getError('required')">
+            </mat-error>
+          </label>
+        </mat-form-field>
+        <mat-slide-toggle formControlName="option{{item}}_slider"
+          class="example-margin"
+          color="primary">
+        </mat-slide-toggle>
+      </div>
+    </div>
+
+    <div *ngIf="this.optionsNumbers.length < 4 && this.displayNextInput()">
+      <mat-form-field class="option">
+        <label>
+          <input matInput placeholder="Write the option text"  type="text" (click)="focusOnNext()">
+        </label>
+      </mat-form-field>
+      <mat-slide-toggle
+        class="example-margin"
+        color="primary"
+        disabled >
+      </mat-slide-toggle>
+    </div>
+  </form>
+</div>

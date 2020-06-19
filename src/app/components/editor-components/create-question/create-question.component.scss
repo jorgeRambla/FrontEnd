@@ -1,0 +1,54 @@
+div.create-question-container {
+  form.create-question-form {
+    display: inline-block;
+    max-width: 50%;
+    width: 100%;
+  }
+
+  mat-form-field.option {
+    width: 90%;
+  }
+
+  mat-form-field.question {
+    width: 100%;
+
+    ::ng-deep .mat-form-field-underline {
+      display: none;
+    }
+
+    ::ng-deep .mat-form-field-label {
+      margin-left: 5px;
+      margin-top: 2px;
+    }
+  }
+
+  .example-custom-placeholder {
+    background: #ccc;
+    border: solid 2px black;
+    border-radius: 5px;
+    min-height: 60px;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  input {
+    width: 100%;
+  }
+
+  textarea {
+    width: 100%;
+    resize: none;
+    height: 100px;
+    border: 1px solid black;
+    border-radius: 5px
+  }
+
+  mat-slide-toggle {
+    margin-top: 2%;
+    float: right;
+  }
+
+  margin-top: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
