@@ -1,14 +1,20 @@
 <div [ngClass]="['create-question-container', popup ? '' : 'normal']">
-  <form [formGroup]="questionForm" class="create-question-form">
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="create-question-form">
     <mat-form-field class="question">
       <label>
-        <textarea matInput formControlName="question" placeholder="Create here your amazing question" maxlength="256"></textarea>
+        <textarea class="question" matInput formControlName="question" placeholder="Create here your amazing question" maxlength="256"></textarea>
+      </label>
+    </mat-form-field>
+    <mat-form-field class="description">
+      <label>
+        <textarea class="description" matInput formControlName="description" placeholder="Description" maxlength="128"></textarea>
       </label>
     </mat-form-field>
 
+
     <div cdkDropList class="options-container" (cdkDropListDropped)="drop($event)">
-      <div *ngFor="let item of optionsNumbers" cdkDrag>
-        <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+      <div *ngFor="let item of optionsNumbers" cdkDrag >
+        <div class="option-placeholder" *cdkDragPlaceholder></div>
         <mat-form-field class="option">
           <label>
             <input matInput #Options placeholder="Write the option text"  type="text" formControlName="option{{item}}">
@@ -34,6 +40,11 @@
         color="primary"
         disabled >
       </mat-slide-toggle>
+    </div>
+    <div class="button-row">
+      <button class="primary-action" type="submit" mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.questionId===null">Create</button>
+      <button class="primary-action" type="submit" mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.questionId!==null">Update</button>
+      <button class="draft" type="button" mat-raised-button (click)="draft()" [disabled]="!this.form().question.valid || this.sendingRequest">Save as draft</button>
     </div>
   </form>
 </div>

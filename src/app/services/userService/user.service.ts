@@ -38,10 +38,15 @@ export class UserService implements CanActivate {
     return Number(localStorage.getItem('user.id'));
   }
 
-  public checkUserIsAuthorized(error: HttpErrorResponse): void {
-    if (error.status === 401) {
-      // TODO: If user want to extend session auto restore with new session
-      UserService.removeSessionData();
+  public checkUserIsAuthorized(error: any): void {
+    try {
+      const httpError = error as HttpErrorResponse;
+      if (httpError.status === 401) {
+        // TODO: If user want to extend session auto restore with new session
+        UserService.removeSessionData();
+      }
+    } catch (e) {
+      this.logger.debug('Cannot transform given error to HttpErrorResponse');
     }
   }
 
@@ -115,6 +120,7 @@ export class UserService implements CanActivate {
         return data as UserModel;
       } )
       .catch( error => {
+        this.checkUserIsAuthorized(error);
         this.logger.debug('Cannot fetch current session user on \'UserService\'', error);
         throw error;
       });
@@ -184,6 +190,5 @@ export class UserService implements CanActivate {
       }
       return true;
     }
-    return true;
   }
 }

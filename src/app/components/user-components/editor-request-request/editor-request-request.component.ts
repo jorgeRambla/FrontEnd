@@ -51,7 +51,6 @@ export class EditorRequestRequestComponent implements OnInit {
         if (httpErrorResponse.status === 404) {
           this.existsPreviousRequest = false;
         }
-        this.userService.checkUserIsAuthorized(httpErrorResponse);
       });
   }
 

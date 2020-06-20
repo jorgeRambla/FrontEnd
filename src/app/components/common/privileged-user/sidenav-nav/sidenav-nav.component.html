@@ -8,13 +8,13 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <mat-sidenav-container fxFlexFill class="sidenav-container" [style.marginTop.px]="0">
+  <mat-sidenav-container fxFlexFill class="sidenav-container" [style.marginTop.px]="0" (swipeleft)="sidenav.toggle(false)">
     <mat-sidenav #sidenav fxLayout="column" [mode]="mobileQuery.matches ? 'over' : 'side'" fixedTopGap="56" class="sidenav-navigation">
       <mat-nav-list>
         <app-sidenav-menus></app-sidenav-menus>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content (swiperight)="sidenav.toggle()">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

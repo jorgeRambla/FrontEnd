@@ -29,6 +29,7 @@ export class RequestService {
       .toPromise()
       .then()
       .catch(error => {
+        this.userService.checkUserIsAuthorized(error);
         this.logger.debug('Cannot create editor request on \'RequestService\'', error);
         throw error;
       });
@@ -45,6 +46,7 @@ export class RequestService {
       .toPromise()
       .then()
       .catch(error => {
+        this.userService.checkUserIsAuthorized(error);
         this.logger.debug('Cannot update editor request on \'RequestService\'', error);
         throw error;
       });
@@ -61,6 +63,7 @@ export class RequestService {
         return data as EditorRequestModel;
       })
       .catch(error => {
+        this.userService.checkUserIsAuthorized(error);
         this.logger.debug('Cannot create editor request on \'RequestService\'', error);
         throw error;
       });
@@ -83,6 +86,7 @@ export class RequestService {
         return data as EditorRequestModel[];
       })
       .catch(error => {
+        this.userService.checkUserIsAuthorized(error);
         this.logger.debug('Cannot fetch editor request list', error);
         throw error;
       });
@@ -111,6 +115,7 @@ export class RequestService {
         return data as PageableCollectionModel<EditorRequestModel>;
       })
       .catch(error => {
+        this.userService.checkUserIsAuthorized(error);
         this.logger.debug('Cannot fetch editor request list', error);
         throw error;
       });
