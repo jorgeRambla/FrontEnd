@@ -188,7 +188,7 @@ export class UserService implements CanActivate {
           return false;
         });
       }
-      return true;
     }
+    return true;
   }
 }
