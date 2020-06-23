@@ -1,0 +1,3 @@
+<span [ngClass]="['workflow-status', replaceAll(status.toString().toLowerCase(), '_', '-')]" *ngIf="status">
+  {{replaceAll(status, '_', ' ')}}
+</span>

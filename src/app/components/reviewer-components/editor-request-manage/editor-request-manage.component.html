@@ -33,16 +33,16 @@
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
-    <!-- Name Column -->
     <ng-container matColumnDef="title">
       <th mat-header-cell scope="col" *matHeaderCellDef> Title </th>
       <td mat-cell *matCellDef="let element"> {{element.lastWorkflow.title}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell scope="col" *matHeaderCellDef> Status </th>
-      <td mat-cell [ngClass]="['status', element.lastWorkflow.status.toString().toLowerCase()]" *matCellDef="let element"> {{element.lastWorkflow.status}} </td>
+      <td mat-cell [ngClass]="['status']" *matCellDef="let element">
+        <app-status-tag [status]="element.lastWorkflow.status"></app-status-tag>
+      </td>
     </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
@@ -57,7 +57,7 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let element; columns: displayedColumns;"
         class="request-element-row"
         [class.request-expanded-row]="expandedElement === element"

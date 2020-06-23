@@ -23,6 +23,7 @@ import { EditorRequestManageComponent } from './components/reviewer-components/e
 import { GameComponentsRequestManagerComponent } from './components/reviewer-components/game-request-manager/game-components-request-manager.component';
 import { CreateQuestionComponent } from './components/editor-components/create-question/create-question.component';
 import { ViewMyQuestionsComponent } from './components/editor-components/view-my-questions/view-my-questions.component';
+import { StatusTagComponent } from './components/common/status-tag/status-tag.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ViewMyQuestionsComponent } from './components/editor-components/view-my
     EditorRequestManageComponent,
     GameComponentsRequestManagerComponent,
     CreateQuestionComponent,
-    ViewMyQuestionsComponent
+    ViewMyQuestionsComponent,
+    StatusTagComponent
   ],
   imports: [
     BrowserModule,

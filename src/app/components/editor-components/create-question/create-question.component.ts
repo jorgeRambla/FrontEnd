@@ -1,26 +1,31 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {LoggerService} from '../../../services/shared/logger.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {QuestionService} from '../../../services/questionService/question.service';
 import {QuestionRequest} from '../../../model/question/Question.request';
 import {OptionRequest} from '../../../model/option/Option.request';
 import {HttpErrorResponse} from '@angular/common/http';
+import {QuestionModel} from '../../../model/question/Question.model';
 
 @Component({
   selector: 'app-create-question',
   templateUrl: './create-question.component.html',
   styleUrls: ['./create-question.component.scss']
 })
-export class CreateQuestionComponent implements OnInit, AfterViewInit {
+export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private logger: LoggerService, private router: Router, private formBuilder: FormBuilder,
-              private  questionService: QuestionService) { }
+              private  questionService: QuestionService, private activatedRoute: ActivatedRoute) {
+  }
+
   questionForm: FormGroup;
   optionsNumbers: number[];
   sendingRequest = false;
   private nextId: number;
   private deleted = false;
+  private pathSubscription;
+  private question: QuestionModel = null;
 
   @Input() public popup = false;
   @Input() public questionId: number = null;
@@ -37,24 +42,57 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
-    // TODO: OnEdit fill with options
-    this.optionsNumbers = [1, 2];
+    if (this.router.url.match('\\/my-questions\\/update\\/\\d+')) {
+      this.pathSubscription = this.activatedRoute.paramMap.subscribe(parameters => {
+        this.questionId = parseInt(parameters.get('id'), 10);
+      });
+    }
 
     this.questionForm = this.formBuilder.group({
       question: ['', [Validators.required]],
       description: ['', []]
     });
+    this.optionsNumbers = [1, 2];
 
-    this.optionsNumbers.forEach(item => {
-      const formItem = 'option'.concat(String(item));
-      this.questionForm.addControl(formItem, new FormControl('', [Validators.required]));
-      this.questionForm.addControl(formItem.concat('_slider'), new FormControl('', []));
-      this.questionForm.get(formItem).valueChanges.subscribe(() => {
-        this.optionChanged(formItem);
+    if (this.questionId) {
+      this.questionService.getQuestionById(this.questionId)
+        .then(data => {
+          this.question = data;
+          if (data) {
+            this.optionsNumbers = [];
+            this.questionForm.get('question').setValue(data.title);
+            this.questionForm.get('description').setValue(data.description);
+            data.options.forEach((item, index) => {
+              this.optionsNumbers.push(index);
+              const formItem = 'option'.concat(String(index));
+              this.questionForm.addControl(formItem, new FormControl(item.title, [Validators.required]));
+              this.questionForm.addControl(formItem.concat('_slider'), new FormControl(item.correct ? 'true' : '', []));
+              this.questionForm.get(formItem).valueChanges.subscribe(() => {
+                this.optionChanged(formItem);
+              });
+              this.nextId = index + 1;
+            });
+          }
+        })
+        .catch(error => {
+          const httpError = error as HttpErrorResponse;
+          if (Math.floor(httpError.status / 100) / 4 === 1) {
+            this.router.navigate(['my-questions', 'new']).then(() => {
+              this.logger.debug('Navigate from my-questions/update to my-questions/new');
+            });
+          }
+        });
+    } else {
+      this.optionsNumbers.forEach((item, index) => {
+        const formItem = 'option'.concat(String(item));
+        this.questionForm.addControl(formItem, new FormControl('', [Validators.required]));
+        this.questionForm.addControl(formItem.concat('_slider'), new FormControl('', []));
+        this.questionForm.get(formItem).valueChanges.subscribe(() => {
+          this.optionChanged(formItem);
+        });
+        this.nextId = item + 1;
       });
-      this.nextId = item + 1;
-    });
+    }
   }
 
   ngAfterViewInit() {
@@ -172,17 +210,33 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit {
       .catch(error => {
         const httpErrorResponse = error as HttpErrorResponse;
         this.logger.debug('Error creating question', httpErrorResponse);
-    }).finally(() => {
+      }).finally(() => {
       this.sendingRequest = false;
     });
   }
 
   private update(question: QuestionRequest) {
-    this.questionCreated.emit();
-    if (!this.popup) {
-      this.router.navigate(['my-questions', 'view']).then(() => {
-        this.logger.debug('Navigate from my-questions/new to my-questions/view');
-      });
+    this.sendingRequest = true;
+    this.questionService.updateQuestion(this.questionId, question)
+      .then(() => {
+        this.questionCreated.emit();
+        if (!this.popup) {
+          this.router.navigate(['my-questions', 'view']).then(() => {
+            this.logger.debug('Navigate from my-questions/new to my-questions/view');
+          });
+        }
+      })
+      .catch(error => {
+        const httpErrorResponse = error as HttpErrorResponse;
+        this.logger.debug('Error creating question', httpErrorResponse);
+      }).finally(() => {
+      this.sendingRequest = false;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.pathSubscription) {
+      this.pathSubscription.unsubscribe();
     }
   }
 }

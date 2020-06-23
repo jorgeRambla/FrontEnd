@@ -1,0 +1,42 @@
+span.workflow-status {
+  margin-right: 5px;
+  margin-top: 10px;
+  display: inline-block;
+  padding: 5px 10px 5px 10px;
+  border-radius: 2px;
+  font-weight: bolder;
+  &.approved {
+    border: 1px solid green;
+    color: green;
+  }
+
+  &.denied {
+    padding: 5px 22px 5px 22px;
+    border: 1px solid red;
+    color: red;
+  }
+
+  &.pending {
+    padding: 5px 16.5px 5px 16.5px;
+    border: 1px solid grey;
+    color: grey;
+  }
+
+  &.draft {
+    margin-top: 2px !important;
+    padding: 5px 24.5px 5px 24.5px;
+    border: 1px solid lightslategrey;
+    color: lightslategrey;
+  }
+
+  &.draft-from-approved {
+    margin-top: 2px !important;
+    padding: 5px 0 5px 10px;
+    border: 1px solid lightslategrey;
+    color: lightslategrey;
+    background-color: rgba(11, 121, 23, 0.11);;
+    font-size: 9px;
+    max-width: 86px;
+  }
+
+}

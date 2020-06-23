@@ -5,5 +5,6 @@ export class QuestionModel {
   title: string;
   description: string;
   isMultiple: boolean;
+  published: boolean;
   options: OptionModel[];
 }

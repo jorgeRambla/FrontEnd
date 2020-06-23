@@ -69,6 +69,11 @@ const routes: Routes = [
         path: 'new',
         component: CreateQuestionComponent,
         canActivate: [UserService]
+      },
+      {
+        path: 'update/:id',
+        component: CreateQuestionComponent,
+        canActivate: [UserService]
       }
     ]
   },
