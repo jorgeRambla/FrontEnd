@@ -52,7 +52,7 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
       question: ['', [Validators.required]],
       description: ['', []]
     });
-    this.optionsNumbers = [1, 2];
+    this.optionsNumbers = [];
 
     if (this.questionId) {
       this.questionService.getQuestionById(this.questionId)
@@ -83,6 +83,7 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
           }
         });
     } else {
+      this.optionsNumbers = [1, 2];
       this.optionsNumbers.forEach((item, index) => {
         const formItem = 'option'.concat(String(item));
         this.questionForm.addControl(formItem, new FormControl('', [Validators.required]));
@@ -111,7 +112,7 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
     let somethingEmpty = false;
     this.optionsNumbers.forEach(item => {
       const id = 'option'.concat(String(item));
-      if (!this.questionForm.get(id).value) {
+      if (this.questionForm.get(id) && !this.questionForm.get(id).value) {
         somethingEmpty = true;
       }
     });
@@ -123,8 +124,10 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
       question: this.form().question.valid,
       description: this.form().description.valid,
       options: this.optionsNumbers.length >= 2,
-      option1: this.form()['option'.concat(String(this.optionsNumbers[0]))].valid,
-      option2: this.form()['option'.concat(String(this.optionsNumbers[1]))].valid,
+      option1: this.form()['option'.concat(String(this.optionsNumbers[0]))]
+        && this.form()['option'.concat(String(this.optionsNumbers[0]))].valid,
+      option2: this.form()['option'.concat(String(this.optionsNumbers[1]))]
+        && this.form()['option'.concat(String(this.optionsNumbers[1]))].valid,
       sendingRequest: !this.sendingRequest
     });
     return this.form().question.valid

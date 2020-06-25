@@ -18,7 +18,7 @@
         <mat-form-field class="option">
           <label>
             <input matInput #Options placeholder="Write the option text"  type="text" formControlName="option{{item}}">
-            <mat-error *ngIf="this.questionForm.get('option' + item).getError('required')">
+            <mat-error *ngIf="this.questionForm.get('option' + item) && this.questionForm.get('option' + item).getError('required')">
             </mat-error>
           </label>
         </mat-form-field>
