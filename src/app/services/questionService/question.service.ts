@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {UserService} from '../userService/user.service';
 import {HttpClient} from '@angular/common/http';
 import {LoggerService} from '../shared/logger.service';
@@ -13,7 +13,9 @@ import {WorkflowStatusModel} from '../../model/workflow/WorkflowStatus.model';
 })
 export class QuestionService {
 
-  constructor(private userService: UserService, private http: HttpClient, private logger: LoggerService) { }
+  constructor(private userService: UserService, private http: HttpClient, private logger: LoggerService) {
+  }
+
   private currentServiceEndPoint = 'question';
   private baseAPIUrl = environment.baseAPIUrl.concat(this.currentServiceEndPoint);
 
@@ -90,6 +92,22 @@ export class QuestionService {
       })
       .catch(error => {
         this.logger.debug('Cannot get Question on \'QuestionService\'', error);
+        throw error;
+      });
+  }
+
+  public deleteQuestionById(id: number): Promise<any> {
+    return this.http.delete(
+      this.baseAPIUrl.concat('/').concat(String(id)),
+      {
+        headers: this.userService.getAuthHttpHeader(),
+        responseType: 'text'
+      }
+    )
+      .toPromise()
+      .then()
+      .catch(error => {
+        this.logger.debug('Cannot create Question on \'QuestionService\'', error);
         throw error;
       });
   }

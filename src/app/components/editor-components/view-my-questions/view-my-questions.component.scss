@@ -34,7 +34,8 @@ div.question-manage-container {
 
     .mat-column-title {
       flex: 0 0 25% !important;
-      min-width: 84% !important;
+      width: 70% !important;
+      text-overflow: ellipsis;
     }
     .mat-column-status {
       flex: 0 0 25% !important;

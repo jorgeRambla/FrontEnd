@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {QuestionModel} from '../../../model/question/Question.model';
 import {MatPaginator, MatSort, PageEvent} from '@angular/material';
 import {LoggerService} from '../../../services/shared/logger.service';
@@ -17,6 +17,7 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
   public filterForm: FormGroup;
   public filtered = false;
   public query = '';
+  private width: number;
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -24,6 +25,7 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
   constructor(private logger: LoggerService, private questionService: QuestionService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.width = window.innerWidth;
     this.filterForm = this.formBuilder.group({
       query: [''],
       filter: ['all']
@@ -47,7 +49,7 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
     }
 
   public updateList(pageIndex: number, pageSize: number) {
-    this.questionService.getQuestionsPaging(!this.filtered, true, this.paginator.pageIndex, this.paginator.pageSize,
+    this.questionService.getQuestionsPaging(!this.filtered, true, pageIndex, pageSize,
       this.sort.active, this.sort.direction, this.query)
       .then(data => {
         this.questions = data.data;
@@ -62,6 +64,21 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
 
   public refreshList() {
     this.updateList(this.paginator.pageIndex, this.paginator.pageSize);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.width = window.innerWidth;
+  }
+
+  public truncate(input: string): string {
+    return input.slice(0, Math.floor(this.width / 35));
+  }
+
+  public deleteQuestion(id: number): void {
+    this.questionService.deleteQuestionById(id).then(() => {
+      this.refreshList();
+    });
   }
 
 }

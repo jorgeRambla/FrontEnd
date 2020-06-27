@@ -8,6 +8,13 @@ span.current-app-name {
 }
 
 .app-sidenav-navigation-container {
+  &.auto {
+    height: auto;
+  }
+
+  &.default {
+    height: 100vh;
+  }
   position: fixed;
-  overflow: hidden;
+  overflow: auto;
 }
