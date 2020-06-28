@@ -66,7 +66,7 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
     this.updateList(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize', [])
   onResize() {
     this.width = window.innerWidth;
   }

@@ -8,7 +8,7 @@ build_based_on_env_var()
     fi
     case $APP_STAGE in
         prod)
-            echo 'Building production enviroment'
+            echo 'Building production environment'
             ng build --configuration=production
             break
 		    ;;
