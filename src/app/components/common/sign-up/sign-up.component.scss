@@ -2,6 +2,19 @@
   background-color: darkslategray;
   height: 100%;
 
+  .sign-up-other-options-container {
+    a {
+      color: black;
+    }
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 12px;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    line-height: 54px;
+    margin-top: 10px;
+    text-align: center;
+  }
+
   .sign-up-form {
     min-width: 100%;
     max-width: 300px;

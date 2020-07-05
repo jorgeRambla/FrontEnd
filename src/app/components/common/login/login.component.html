@@ -8,7 +8,8 @@
     <form class="login-form" (ngSubmit)="submitLoginForm()">
       <mat-card-content>
         <mat-form-field class="input-full-width">
-          <input matInput placeholder="Username" [formControl]="username" (keydown.space)="$event.preventDefault();">
+          <input matInput placeholder="Username" [formControl]="username" (keydown.space)="$event.preventDefault();"
+                 #loginUsername [value]="loginUsername.value.toLowerCase()">
           <mat-error *ngIf="username.errors && username.errors.invalid">
           </mat-error>
           <mat-error *ngIf="username.errors && username.errors.forbidden">
@@ -31,11 +32,8 @@
         </mat-spinner></mat-icon>Log in</button>
     </form>
     <div class="login-other-options-container">
-      <ul>
-        <li class="option">
-          <a routerLink="/forgot-password">Forgot password?</a>
-        </li>
-      </ul>
+        New at Murcy?
+        <a routerLink="/sign-up">Sign up here!</a>
     </div>
   </mat-card>
 </div>

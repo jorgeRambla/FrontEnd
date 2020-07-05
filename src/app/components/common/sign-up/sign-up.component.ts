@@ -13,7 +13,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class SignUpComponent implements OnInit {
   registerForm: FormGroup;
-
+  public requesting = false;
 
   constructor(private userService: UserService, private logger: LoggerService, private router: Router, private formBuilder: FormBuilder) { }
 
@@ -40,6 +40,7 @@ export class SignUpComponent implements OnInit {
   public submitSignUpForm(): void {
     if (this.registerForm.get('username').valid && this.registerForm.get('password').valid
       && this.registerForm.get('fullName').valid && this.registerForm.get('email').valid) {
+      this.requesting = true;
       this.userService.createUser(this.registerForm.get('username').value, this.registerForm.get('password').value,
         this.registerForm.get('email').value, this.registerForm.get('fullName').value)
         .then(() => {
@@ -67,6 +68,9 @@ export class SignUpComponent implements OnInit {
           } else {
             this.logger.debug('unknown error');
           }
+        })
+        .finally(() => {
+          this.requesting = false;
         });
     }
   }
