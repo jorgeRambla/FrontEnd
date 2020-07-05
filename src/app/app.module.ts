@@ -24,6 +24,7 @@ import { GameComponentsRequestManagerComponent } from './components/reviewer-com
 import { CreateQuestionComponent } from './components/editor-components/create-question/create-question.component';
 import { ViewMyQuestionsComponent } from './components/editor-components/view-my-questions/view-my-questions.component';
 import { StatusTagComponent } from './components/common/status-tag/status-tag.component';
+import { AlertingComponent } from './components/common/alerting/alerting.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { StatusTagComponent } from './components/common/status-tag/status-tag.co
     GameComponentsRequestManagerComponent,
     CreateQuestionComponent,
     ViewMyQuestionsComponent,
-    StatusTagComponent
+    StatusTagComponent,
+    AlertingComponent
   ],
   imports: [
     BrowserModule,

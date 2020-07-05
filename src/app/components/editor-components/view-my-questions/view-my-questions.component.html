@@ -1,7 +1,6 @@
 <div class="question-manage-filter">
   <form [formGroup]="filterForm">
     <mat-form-field>
-
       <mat-label><mat-icon>search</mat-icon> Search</mat-label>
       <label>
         <input matInput type="search" formControlName="query">
@@ -16,7 +15,8 @@
     </mat-form-field>
   </form>
 </div>
-<div class="question-manage-container">
+<app-alert></app-alert>
+<div class="question-manage-container" [ngClass]="[questions.length > 0 ? '': 'none']">
   <table [dataSource]="questions" class="question-table" mat-table
          matSort matSortActive="createDate" matSortDirection="asc" matSortDisableClear multiTemplateDataRows (matSortChange)="refreshList()">
 
@@ -66,7 +66,7 @@
     </tr>
   </table>
 </div>
-<mat-paginator [length]="resultsLength"
+<mat-paginator [length]="resultsLength" [ngClass]="[questions.length > 0 ? '': 'none']"
                [pageSize]="5"
                [pageSizeOptions]="[5,10]"
                (page)="refreshData($event)"></mat-paginator>

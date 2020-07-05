@@ -13,6 +13,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class LoginComponent implements OnInit {
   public username: FormControl = new FormControl('', [Validators.required]);
   public password: FormControl = new FormControl('', [Validators.required]);
+  public requesting = false;
 
   constructor(private userService: UserService, private logger: LoggerService, private router: Router) { }
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
 
   public submitLoginForm(): void {
     if (this.username.valid && this.password.valid) {
+      this.requesting = true;
       this.userService.login(this.username.value, this.password.value)
         .then(() => {
           this.userService.retrieveCurrentSessionUserData().then(() => {
@@ -47,7 +49,9 @@ export class LoginComponent implements OnInit {
             default:
               break;
           }
-        });
+        }).finally(() => {
+          this.requesting = false;
+      });
     }
   }
 }

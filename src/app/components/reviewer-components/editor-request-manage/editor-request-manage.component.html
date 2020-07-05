@@ -23,8 +23,8 @@
     </mat-form-field>
   </form>
 </div>
-
-<div class="editor-request-manage-container">
+<app-alert></app-alert>
+<div class="editor-request-manage-container" [ngClass]="[editorRequests.length > 0 ? '': 'none']">
   <table [dataSource]="editorRequests" class="editor-request-table" mat-table
          matSort matSortActive="id" matSortDirection="asc" matSortDisableClear multiTemplateDataRows (matSortChange)="childUpdateList()">
 
@@ -66,7 +66,7 @@
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="request-item-detail-row"></tr>
   </table>
 </div>
-<mat-paginator [length]="resultsLength"
+<mat-paginator [length]="resultsLength" [ngClass]="[editorRequests.length > 0 ? '': 'none']"
                [pageSize]="5"
                [pageSizeOptions]="[5,10]"
                (page)="refreshData($event)"></mat-paginator>

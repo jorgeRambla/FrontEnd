@@ -4,6 +4,7 @@ import {MatPaginator, MatSort, PageEvent} from '@angular/material';
 import {LoggerService} from '../../../services/shared/logger.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '../../../services/questionService/question.service';
+import {AlertService} from '../../../services/alertingService/alert.service';
 
 @Component({
   selector: 'app-view-my-questions',
@@ -22,7 +23,8 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private logger: LoggerService, private questionService: QuestionService, private formBuilder: FormBuilder) { }
+  constructor(private logger: LoggerService, private questionService: QuestionService, private formBuilder: FormBuilder,
+              private alert: AlertService) { }
 
   ngOnInit() {
     this.width = window.innerWidth;
@@ -52,8 +54,12 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
     this.questionService.getQuestionsPaging(!this.filtered, true, pageIndex, pageSize,
       this.sort.active, this.sort.direction, this.query)
       .then(data => {
+        this.alert.clear();
         this.questions = data.data;
         this.resultsLength = data.length;
+        if (this.resultsLength === 0) {
+          this.alert.info('There aren\'t questions with given filters!');
+        }
       })
       .catch();
   }

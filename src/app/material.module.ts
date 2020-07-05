@@ -16,7 +16,7 @@ import {
   MatExpansionModule,
   MatPaginatorModule,
   MatSortModule,
-  MatTableModule, MatSelectModule, MatMenuModule
+  MatTableModule, MatSelectModule, MatMenuModule, MatProgressSpinnerModule
 } from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
@@ -39,6 +39,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatSelectModule,
     DragDropModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
@@ -62,6 +63,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatSelectModule,
     DragDropModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,

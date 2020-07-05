@@ -10,10 +10,10 @@
         </mat-expansion-panel-header>
         <mat-card class="workflow-display-description">
           <div *ngIf="loopWorkflow.description != null && loopWorkflow.description.length > 0">
-            you: {{loopWorkflow.description}}
+            {{loopWorkflow.descriptionBy}}: {{loopWorkflow.description}}
           </div>
           <div *ngIf="loopWorkflow.description == null || loopWorkflow.description.length <= 0">
-            you: No description provided
+            {{loopWorkflow.descriptionBy}}: No description provided
           </div>
         </mat-card>
         <mat-card [ngClass]="['workflow-display-response', loopWorkflow.status.toString().toLowerCase()]" *ngIf="loopWorkflow.response != null && loopWorkflow.response.length > 0">

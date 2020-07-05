@@ -5,6 +5,7 @@ import {RequestService} from '../../../services/requestService/request.service';
 import {MatPaginator, MatSort, PageEvent} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {AlertService} from '../../../services/alertingService/alert.service';
 
 @Component({
   selector: 'app-editor-request-manage',
@@ -32,7 +33,8 @@ export class EditorRequestManageComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private logger: LoggerService, private requestService: RequestService, private formBuilder: FormBuilder) {
+  constructor(private logger: LoggerService, private requestService: RequestService, private formBuilder: FormBuilder,
+              private alert: AlertService) {
   }
 
   ngOnInit(): void {
@@ -47,27 +49,29 @@ export class EditorRequestManageComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    this.childUpdateList();
+    this.updateList(this.paginator.pageIndex, this.paginator.pageSize);
+  }
+
+  public updateList(pageIndex: number, pageSize: number) {
+    this.requestService.getEditorRequestsPaging(!this.filtered, this.closed, this.approved, pageIndex,
+      pageSize, this.sort.active, this.sort.direction)
+      .then(data => {
+        this.alert.clear();
+        this.editorRequests = data.data;
+        this.resultsLength = data.length;
+        if (this.resultsLength === 0) {
+          this.alert.info('There is no requests');
+        }
+      })
+      .catch();
   }
 
   public childUpdateList() {
-    this.requestService.getEditorRequestsPaging(!this.filtered, this.closed, this.approved, this.paginator.pageIndex,
-      this.paginator.pageSize, this.sort.active, this.sort.direction)
-      .then(data => {
-        this.editorRequests = data.data;
-        this.resultsLength = data.length;
-      })
-      .catch();
+    this.updateList(this.paginator.pageIndex, this.paginator.pageSize);
   }
 
   public refreshData(event?: PageEvent) {
-    this.requestService.getEditorRequestsPaging(!this.filtered, this.closed, this.approved, event.pageIndex, event.pageSize,
-      this.sort.active, this.sort.direction)
-      .then(data => {
-        this.editorRequests = data.data;
-        this.resultsLength = data.length;
-      })
-      .catch();
+    this.updateList(event.pageIndex, event.pageSize);
   }
 
   public filter(): void {

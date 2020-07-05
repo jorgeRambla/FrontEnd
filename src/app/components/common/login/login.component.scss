@@ -2,6 +2,13 @@
   background-color: darkslategray;
   height: 100%;
 
+  .forgot-password {
+    float: right;
+    color: rgba(0, 0, 0, 0.54);
+    margin-top: -20px;
+    font-size: 14px;
+  }
+
   .login-form {
     min-width: 100%;
     max-width: 300px;

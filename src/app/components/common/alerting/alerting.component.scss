@@ -1,0 +1,20 @@
+.alert-danger {
+  background-color: #f44336; /* Red */
+}
+.alert-success {
+  background-color: #36f456;
+}
+.alert-info {
+  background-color: #d1ecf1; /* Red */
+}
+.alert-warning {
+  background-color: #fff3cd;
+}
+.alert{
+  padding: 20px;
+  color: black;
+  margin: 0.75rem auto 15px auto;
+  text-align: center;
+  border-radius: .25rem;
+  width: 80%;
+}
