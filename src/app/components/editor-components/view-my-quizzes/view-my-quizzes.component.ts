@@ -1,20 +1,21 @@
 import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {QuestionModel} from '../../../model/question/Question.model';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatPaginator, MatSort, PageEvent} from '@angular/material';
 import {LoggerService} from '../../../services/shared/logger.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {QuestionService} from '../../../services/questionService/question.service';
 import {AlertService} from '../../../services/alertingService/alert.service';
-import {NavigationService} from '../../../services/navigationService/navigation.service';
+import {QuizModel} from '../../../model/quiz/Quiz.model';
+import {QuizService} from '../../../services/quizService/quiz.service';
 
 @Component({
-  selector: 'app-view-my-questions',
-  templateUrl: './view-my-questions.component.html',
-  styleUrls: ['./view-my-questions.component.scss']
+  selector: 'app-view-my-quizzes',
+  templateUrl: './view-my-quizzes.component.html',
+  styleUrls: ['./view-my-quizzes.component.scss']
 })
-export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
+export class ViewMyQuizzesComponent implements AfterViewInit, OnInit {
+
   displayedColumns: string[] = ['id', 'title', 'status', 'menu'];
-  public questions: QuestionModel[] = [];
+  public quizzes: QuizModel[] = [];
   public resultsLength = 0;
   public filterForm: FormGroup;
   public filtered = false;
@@ -24,10 +25,8 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private logger: LoggerService, private questionService: QuestionService, private formBuilder: FormBuilder,
-              private alert: AlertService, private navigationService: NavigationService) {
-    this.navigationService.displayTitle('My questions');
-  }
+  constructor(private logger: LoggerService, private quizService: QuizService, private formBuilder: FormBuilder,
+              private alert: AlertService) { }
 
   ngOnInit() {
     this.width = window.innerWidth;
@@ -51,17 +50,17 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
     this.filtered = this.filterForm.get('filter').value !== 'all';
     this.query = this.filterForm.get('query').value;
     this.refreshList();
-    }
+  }
 
   public updateList(pageIndex: number, pageSize: number) {
-    this.questionService.getQuestionsPaging(!this.filtered, true, pageIndex, pageSize,
+    this.quizService.getQuizzesPaging(!this.filtered, true, pageIndex, pageSize,
       this.sort.active, this.sort.direction, this.query)
       .then(data => {
         this.alert.clear();
-        this.questions = data.data;
+        this.quizzes = data.data;
         this.resultsLength = data.length;
         if (this.resultsLength === 0) {
-          this.alert.info('There aren\'t questions with given filters!');
+          this.alert.info('There aren\'t quizzes with given filters!');
         }
       })
       .catch();
@@ -85,7 +84,7 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
   }
 
   public deleteQuestion(id: number): void {
-    this.questionService.deleteQuestionById(id).then(() => {
+    this.quizService.deleteQuizById(id).then(() => {
       this.refreshList();
     });
   }

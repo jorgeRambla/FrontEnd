@@ -25,6 +25,8 @@ import { CreateQuestionComponent } from './components/editor-components/create-q
 import { ViewMyQuestionsComponent } from './components/editor-components/view-my-questions/view-my-questions.component';
 import { StatusTagComponent } from './components/common/status-tag/status-tag.component';
 import { AlertingComponent } from './components/common/alerting/alerting.component';
+import { CreateQuizComponent } from './components/editor-components/create-quiz/create-quiz.component';
+import { ViewMyQuizzesComponent } from './components/editor-components/view-my-quizzes/view-my-quizzes.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { AlertingComponent } from './components/common/alerting/alerting.compone
     CreateQuestionComponent,
     ViewMyQuestionsComponent,
     StatusTagComponent,
-    AlertingComponent
+    AlertingComponent,
+    CreateQuizComponent,
+    ViewMyQuizzesComponent
   ],
   imports: [
     BrowserModule,

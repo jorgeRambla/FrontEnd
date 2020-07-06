@@ -107,7 +107,7 @@ export class QuestionService {
       .toPromise()
       .then()
       .catch(error => {
-        this.logger.debug('Cannot create Question on \'QuestionService\'', error);
+        this.logger.debug('Cannot delete Question on \'QuestionService\'', error);
         throw error;
       });
   }

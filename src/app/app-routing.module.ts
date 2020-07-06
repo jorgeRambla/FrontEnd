@@ -10,6 +10,8 @@ import {EditorRequestManageComponent} from './components/reviewer-components/edi
 import {GameComponentsRequestManagerComponent} from './components/reviewer-components/game-request-manager/game-components-request-manager.component';
 import {CreateQuestionComponent} from './components/editor-components/create-question/create-question.component';
 import {ViewMyQuestionsComponent} from './components/editor-components/view-my-questions/view-my-questions.component';
+import {ViewMyQuizzesComponent} from './components/editor-components/view-my-quizzes/view-my-quizzes.component';
+import {CreateQuizComponent} from './components/editor-components/create-quiz/create-quiz.component';
 
 const routes: Routes = [
   {
@@ -73,6 +75,31 @@ const routes: Routes = [
       {
         path: 'update/:id',
         component: CreateQuestionComponent,
+        canActivate: [UserService]
+      }
+    ]
+  },
+  {
+    path: 'my-quizzes',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'view'
+      },
+      {
+        path: 'view',
+        component: ViewMyQuizzesComponent,
+        canActivate: [UserService]
+      },
+      {
+        path: 'new',
+        component: CreateQuizComponent,
+        canActivate: [UserService]
+      },
+      {
+        path: 'update/:id',
+        component: CreateQuizComponent,
         canActivate: [UserService]
       }
     ]

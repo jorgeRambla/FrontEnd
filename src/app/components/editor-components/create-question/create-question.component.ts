@@ -8,6 +8,7 @@ import {QuestionRequest} from '../../../model/question/Question.request';
 import {OptionRequest} from '../../../model/option/Option.request';
 import {HttpErrorResponse} from '@angular/common/http';
 import {QuestionModel} from '../../../model/question/Question.model';
+import {NavigationService} from '../../../services/navigationService/navigation.service';
 
 @Component({
   selector: 'app-create-question',
@@ -16,7 +17,9 @@ import {QuestionModel} from '../../../model/question/Question.model';
 })
 export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private logger: LoggerService, private router: Router, private formBuilder: FormBuilder,
-              private  questionService: QuestionService, private activatedRoute: ActivatedRoute) {
+              private  questionService: QuestionService, private activatedRoute: ActivatedRoute,
+              private navigationService: NavigationService) {
+    this.navigationService.displayTitle('Create new question');
   }
 
   questionForm: FormGroup;
@@ -46,6 +49,7 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
       this.pathSubscription = this.activatedRoute.paramMap.subscribe(parameters => {
         this.questionId = parseInt(parameters.get('id'), 10);
       });
+      this.navigationService.displayTitle('Edit question {}'.replace('{}', String(this.questionId)));
     }
 
     this.questionForm = this.formBuilder.group({

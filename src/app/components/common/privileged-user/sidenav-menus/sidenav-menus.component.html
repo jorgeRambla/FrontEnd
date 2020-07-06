@@ -60,8 +60,8 @@
     <ng-template matExpansionPanelContent>
       <a mat-list-item routerLink="my-questions" *ngIf="hasEditorPermission">My questions</a>
       <a mat-list-item routerLink="my-questions/new" *ngIf="hasEditorPermission">Create question</a>
-      <a mat-list-item routerLink="." *ngIf="hasEditorPermission">My quizzes</a>
-      <a mat-list-item routerLink="." *ngIf="hasEditorPermission">Create quiz</a>
+      <a mat-list-item routerLink="my-quizzes" *ngIf="hasEditorPermission">My quizzes</a>
+      <a mat-list-item routerLink="my-quizzes/new" *ngIf="hasEditorPermission">Create quiz</a>
     </ng-template>
   </mat-expansion-panel>
 

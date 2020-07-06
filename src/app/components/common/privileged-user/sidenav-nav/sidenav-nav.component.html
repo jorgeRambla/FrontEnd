@@ -4,7 +4,8 @@
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span class="current-app-name">MURCY</span>
+      <span class="current-app-name" *ngIf="currentPage">MURCY - {{currentPage}}</span>
+      <span class="current-app-name" *ngIf="!currentPage">MURCY</span>
     </mat-toolbar-row>
   </mat-toolbar>
 

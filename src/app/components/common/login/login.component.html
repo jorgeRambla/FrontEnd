@@ -17,7 +17,8 @@
         </mat-form-field>
 
         <mat-form-field class="input-full-width">
-          <a routerLink="/forgot-password" class="forgot-password">Forgot password?</a>
+          <!-- TODO: implement forgot password component          -->
+          <a routerLink="/forgot-password" class="forgot-password" *ngIf="false">Forgot password?</a>
           <input matInput placeholder="password" type="password" [formControl]="password" (keydown.space)="$event.preventDefault();">
           <mat-error *ngIf="password.errors && password.errors.invalid">
             The username or password is not correct
