@@ -44,7 +44,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button [routerLink]="['/', 'my-questions', 'update', element.id]" mat-menu-item>
+          <button [routerLink]="['/', 'my-quizzes', 'update', element.id]" mat-menu-item>
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
@@ -52,7 +52,7 @@
             <mat-icon>publish</mat-icon>
             <span>Publish</span>
           </button>
-          <button (click)="deleteQuestion(element.id)" mat-menu-item>
+          <button (click)="deleteQuiz(element.id)" mat-menu-item disabled>
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>

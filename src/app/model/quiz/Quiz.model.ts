@@ -1,4 +1,5 @@
 import {WorkflowStatusModel} from '../workflow/WorkflowStatus.model';
+import {QuestionModel} from '../question/Question.model';
 
 export class QuizModel {
   id: number;
@@ -8,4 +9,6 @@ export class QuizModel {
   approved: boolean;
   public: boolean;
   closed: boolean;
+  ordered: boolean;
+  questions: QuestionModel[];
 }

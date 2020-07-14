@@ -7,6 +7,7 @@ import {QuestionModel} from '../../model/question/Question.model';
 import {WorkflowStatusModel} from '../../model/workflow/WorkflowStatus.model';
 import {PageableCollectionModel} from '../../model/PageableCollection.model';
 import {QuizModel} from '../../model/quiz/Quiz.model';
+import {QuizRequest} from '../../model/quiz/Quiz.request';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +18,10 @@ export class QuizService {
   private currentServiceEndPoint = 'quiz';
   private baseAPIUrl = environment.baseAPIUrl.concat(this.currentServiceEndPoint);
 
-  public createQuiz(title: string, description: string, questionIds: number[], draft: boolean): Promise<any> {
+  public createQuiz(quiz: QuizRequest): Promise<any> {
     return this.http.post(
-     this.baseAPIUrl, {
-        title,
-        description,
-        questionIds,
-        draft
-      },
+     this.baseAPIUrl,
+      quiz,
       {
         headers: this.userService.getAuthHttpHeader()
       }
@@ -33,6 +30,22 @@ export class QuizService {
       .then()
       .catch(error => {
         this.logger.debug('Cannot create Quiz on \'QuizService\'', error);
+        throw error;
+      });
+  }
+
+  public updateQuiz(id: number, quiz: QuizRequest): Promise<any> {
+    return this.http.put(
+      this.baseAPIUrl.concat('/{}').replace('{}', String(id)),
+      quiz,
+      {
+        headers: this.userService.getAuthHttpHeader()
+      }
+    )
+      .toPromise()
+      .then()
+      .catch(error => {
+        this.logger.debug('Cannot update Quiz on \'QuizService\'', error);
         throw error;
       });
   }
@@ -48,6 +61,22 @@ export class QuizService {
         return data as QuestionModel[];
       })
       .catch();
+  }
+
+  public getQuizById(id: number): Promise<QuizModel> {
+    return this.http.get(
+      this.baseAPIUrl.concat('/').concat(String(id)), {
+        headers: this.userService.getAuthHttpHeader()
+      }
+    )
+      .toPromise()
+      .then(data => {
+        return data as QuizModel;
+      })
+      .catch(error => {
+        this.logger.debug('Cannot get Quiz by given id on \'QuizService\'', error);
+        throw error;
+      });
   }
 
   public getQuizzesPaging(all: boolean, published: boolean, page: number, size: number, sortColumn: string, sortType: string,

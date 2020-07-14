@@ -21,31 +21,31 @@ export class AlertService {
     });
   }
 
-  success(message: string, keepAfterNavigationChange = false) {
+  success(message: string, referencedId = 0, keepAfterNavigationChange = false) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({type: 'success', text: message});
+    this.subject.next({type: 'success', text: message, id: referencedId});
   }
 
-  error(message: string, keepAfterNavigationChange = false) {
+  error(message: string, referencedId = 0, keepAfterNavigationChange = false) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({type: 'error', text: message});
+    this.subject.next({type: 'error', text: message, id: referencedId});
   }
 
-  info(message: string, keepAfterNavigationChange = false) {
+  info(message: string, referencedId = 0, keepAfterNavigationChange = false) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({type: 'info', text: message});
+    this.subject.next({type: 'info', text: message, id: referencedId});
   }
 
-  warning(message: string, keepAfterNavigationChange = false) {
+  warning(message: string, referencedId = 0, keepAfterNavigationChange = false) {
     this.keepAfterNavigationChange = keepAfterNavigationChange;
-    this.subject.next({type: 'warning', text: message});
+    this.subject.next({type: 'warning', text: message, id: referencedId});
   }
 
   getMessage(): Observable<any> {
     return this.subject.asObservable();
   }
 
-  clear(): void {
-    this.subject.next();
+  clear(referencedId = 0): void {
+    this.subject.next({id: referencedId, clear: true});
   }
 }

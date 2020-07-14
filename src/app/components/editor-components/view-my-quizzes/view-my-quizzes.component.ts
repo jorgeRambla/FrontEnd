@@ -6,6 +6,7 @@ import {LoggerService} from '../../../services/shared/logger.service';
 import {AlertService} from '../../../services/alertingService/alert.service';
 import {QuizModel} from '../../../model/quiz/Quiz.model';
 import {QuizService} from '../../../services/quizService/quiz.service';
+import {NavigationService} from '../../../services/navigationService/navigation.service';
 
 @Component({
   selector: 'app-view-my-quizzes',
@@ -26,9 +27,10 @@ export class ViewMyQuizzesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private logger: LoggerService, private quizService: QuizService, private formBuilder: FormBuilder,
-              private alert: AlertService) { }
+              private alert: AlertService, private navigationService: NavigationService) { }
 
   ngOnInit() {
+    this.navigationService.displayTitle('My quizzes');
     this.width = window.innerWidth;
     this.filterForm = this.formBuilder.group({
       query: [''],
@@ -83,7 +85,7 @@ export class ViewMyQuizzesComponent implements AfterViewInit, OnInit {
     return input.slice(0, Math.floor(this.width / 35));
   }
 
-  public deleteQuestion(id: number): void {
+  public deleteQuiz(id: number): void {
     this.quizService.deleteQuizById(id).then(() => {
       this.refreshList();
     });

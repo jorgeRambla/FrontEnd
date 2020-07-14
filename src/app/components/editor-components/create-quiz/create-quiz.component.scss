@@ -1,0 +1,143 @@
+div.create-quiz-container {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-vertical-stepper {
+    display: inline-block;
+    max-width: 60%;
+    width: 100%;
+
+    mat-form-field.quiz {
+      width: 100%;
+
+      ::ng-deep .mat-form-field-underline {
+        display: none;
+      }
+
+      ::ng-deep .mat-form-field-label {
+        margin-left: 5px;
+        margin-top: 2px;
+      }
+    }
+
+    mat-form-field.description {
+      width: 100%;
+
+      ::ng-deep .mat-form-field-underline {
+        display: none;
+      }
+
+      ::ng-deep .mat-form-field-label {
+        margin-left: 5px;
+        margin-top: 2px;
+      }
+    }
+
+    table.questions-table, table.order-table {
+      width: 100%;
+
+      tr.request-element-row:first-of-type {
+        td {
+          border-top-width: 1px;
+          border-top-color: rgba(0, 0, 0, 0.12);
+          border-top-style: solid;
+        }
+      }
+
+      tr.request-element-row {
+        &.selected {
+          background-color: rgba(0, 0, 0, 0.12);
+        }
+      }
+    }
+
+    table.order-table {
+
+      &.none {
+        display: none;
+      }
+
+      .mat-column-index {
+        width: 2%;
+        border-right-width: 1px;
+        border-right-color: rgba(0, 0, 0, 0.12);
+        border-right-style: solid;
+        padding-right: 6px;
+      }
+
+      .mat-column-title {
+        padding-left: 10px !important;
+      }
+    }
+
+    .order-questions-slider {
+      margin-bottom: 10px;
+    }
+
+    .order-questions-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    div.search {
+      mat-form-field {
+        display: inline-block;
+        width: 70%;
+        margin: 0 10px 0 10px;
+        @media (max-width: 1378px) {
+          width: 90%;
+          margin: 0 10px 0 10px;
+        }
+      }
+      mat-paginator {
+        display: inline-block;
+        @media (max-width: 1378px) {
+          display: block;
+          margin-bottom: 10px;
+        }
+      }
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 479px) {
+    mat-vertical-stepper {
+      max-width: 100%;
+    }
+  }
+  textarea.quiz {
+    width: 100%;
+    resize: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 100px;
+  }
+
+  textarea.description {
+    width: 100%;
+    resize: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 50px;
+  }
+}
+div.button-row {
+  width: 59%;
+  margin: 2% auto 0 auto;
+  padding: 10px 10px 10px 10px;
+  background-color: white;
+
+  button.primary-action {
+    color: white;
+    background-color: green;
+  }
+
+  button.draft {
+    color: white;
+    background-color: #575757;
+    float: right;
+  }
+}

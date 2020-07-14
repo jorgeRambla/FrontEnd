@@ -18,3 +18,18 @@ span.current-app-name {
   position: fixed;
   overflow: auto;
 }
+
+div.swipe-div {
+  width: 50px;
+  position: absolute;
+  height: 100%;
+}
+
+.sidenav-container {
+  /* Firefox */
+  height: -moz-calc(100% - 64px)!important;
+  /* WebKit */
+  height: -webkit-calc(100% - 64px)!important;
+  /* Standard */
+  height: calc(100% - 64px)!important;
+}

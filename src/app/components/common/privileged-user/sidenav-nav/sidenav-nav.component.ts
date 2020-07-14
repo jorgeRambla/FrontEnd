@@ -40,4 +40,9 @@ export class SidenavNavComponent implements OnInit, OnDestroy {
     this.navigationSubscription.unsubscribe();
   }
 
+  public sideNavMode() {
+    // return this.mobileQuery.matches ? 'over' : 'side';
+    return 'over';
+  }
+
 }

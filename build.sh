@@ -10,7 +10,6 @@ build_based_on_env_var()
         prod)
             echo 'Building production environment'
             ng build --configuration=production
-            break
 		    ;;
         staging)
             # Replace app name for staging
@@ -19,7 +18,6 @@ build_based_on_env_var()
             sed -i 's+Murcy+Staging-Murcy+g' src/index.html
             echo 'Building staging enviroment'
             ng build --configuration=staging
-            break
 		    ;;
         *)
 		    echo "Building default profile"

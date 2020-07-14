@@ -43,6 +43,7 @@
     </div>
     <div class="button-row">
       <button class="primary-action" type="submit" mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.questionId===null">Create</button>
+      <button class="primary-action sp" type="button" (click)="submitContinue()"  mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.questionId===null">Create and continue</button>
       <button class="primary-action" type="submit" mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.questionId!==null">Update</button>
       <button class="draft" type="button" mat-raised-button (click)="draft()" [disabled]="!this.form().question.valid || this.sendingRequest">Save as draft</button>
     </div>

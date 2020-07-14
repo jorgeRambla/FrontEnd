@@ -173,7 +173,7 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
     moveItemInArray(this.optionsNumbers, event.previousIndex, event.currentIndex);
   }
 
-  buildRequestObject(publish: boolean, pruneLastEmpty: boolean) {
+  buildRequestObject(publish: boolean, pruneLastEmpty: boolean, redirect = true) {
     const questionRequest = new QuestionRequest();
     questionRequest.title = this.questionForm.get('question').value;
     questionRequest.description = this.questionForm.get('description').value;
@@ -191,7 +191,7 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
     if (this.questionId != null) {
       this.update(questionRequest);
     } else {
-      this.create(questionRequest);
+      this.create(questionRequest, redirect);
     }
   }
 
@@ -199,16 +199,21 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
     this.buildRequestObject(true, true);
   }
 
+  public submitContinue() {
+    this.buildRequestObject(true, true, false);
+    this.ngOnInit();
+  }
+
   draft() {
     this.buildRequestObject(false, false);
   }
 
-  private create(question: QuestionRequest) {
+  private create(question: QuestionRequest, redirect = true) {
     this.sendingRequest = true;
     this.questionService.createQuestion(question)
       .then(() => {
         this.questionCreated.emit();
-        if (!this.popup) {
+        if (!this.popup && redirect) {
           this.router.navigate(['my-questions', 'view']).then(() => {
             this.logger.debug('Navigate from my-questions/new to my-questions/view');
           });
