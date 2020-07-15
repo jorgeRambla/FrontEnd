@@ -83,9 +83,13 @@ div.create-question-container {
     .sp {
       margin-left: 10px;
     }
+
+    .sp-top {
+      margin-top: 10px;
+    }
   }
 
-  @media (max-width: 479px) {
+  @media (max-width: 718px) {
     form.create-question-form {
       display: inline-block;
       max-width: 80%;

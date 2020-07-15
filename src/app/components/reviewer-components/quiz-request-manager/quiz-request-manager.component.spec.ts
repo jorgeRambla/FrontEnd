@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GameComponentsRequestManagerComponent } from './game-components-request-manager.component';
+import { QuizRequestManagerComponent } from './quiz-request-manager.component';
 
 describe('GameComponentsRequestManagerComponent', () => {
-  let component: GameComponentsRequestManagerComponent;
-  let fixture: ComponentFixture<GameComponentsRequestManagerComponent>;
+  let component: QuizRequestManagerComponent;
+  let fixture: ComponentFixture<QuizRequestManagerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameComponentsRequestManagerComponent ]
+      declarations: [ QuizRequestManagerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GameComponentsRequestManagerComponent);
+    fixture = TestBed.createComponent(QuizRequestManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

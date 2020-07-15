@@ -1,6 +1,6 @@
 import {WorkflowModel} from '../workflow/Workflow.model';
 
-export class EditorRequestModel {
+export class RequestModel {
   id: number;
   description: string;
   closed: boolean;

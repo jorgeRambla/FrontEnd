@@ -1,4 +1,16 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import {LoggerService} from '../../../services/shared/logger.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -9,6 +21,7 @@ import {OptionRequest} from '../../../model/option/Option.request';
 import {HttpErrorResponse} from '@angular/common/http';
 import {QuestionModel} from '../../../model/question/Question.model';
 import {NavigationService} from '../../../services/navigationService/navigation.service';
+import {MediaMatcher} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-create-question',
@@ -16,12 +29,6 @@ import {NavigationService} from '../../../services/navigationService/navigation.
   styleUrls: ['./create-question.component.scss']
 })
 export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy {
-  constructor(private logger: LoggerService, private router: Router, private formBuilder: FormBuilder,
-              private  questionService: QuestionService, private activatedRoute: ActivatedRoute,
-              private navigationService: NavigationService) {
-    this.navigationService.displayTitle('Create new question');
-  }
-
   questionForm: FormGroup;
   optionsNumbers: number[];
   sendingRequest = false;
@@ -33,8 +40,19 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
   @Input() public popup = false;
   @Input() public questionId: number = null;
   @Output() questionCreated = new EventEmitter();
-
+  public mobileQuery: MediaQueryList;
+  private readonly mobileQueryListener: () => void;
   @ViewChildren('Options') optionsElements: QueryList<ElementRef>;
+
+  constructor(private logger: LoggerService, private router: Router, private formBuilder: FormBuilder,
+              private  questionService: QuestionService, private activatedRoute: ActivatedRoute,
+              private navigationService: NavigationService, private media: MediaMatcher,
+              private changeDetectorRef: ChangeDetectorRef) {
+    this.navigationService.displayTitle('Create new question');
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this.mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', this.mobileQueryListener);
+  }
 
   private static deleteArrayItem(array: any, item: any): boolean {
     const index = array.indexOf(item, 0);
@@ -250,5 +268,6 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
     if (this.pathSubscription) {
       this.pathSubscription.unsubscribe();
     }
+    this.mobileQuery.removeEventListener('change', this.mobileQueryListener);
   }
 }

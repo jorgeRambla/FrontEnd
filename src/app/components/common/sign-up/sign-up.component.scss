@@ -25,6 +25,26 @@
     width: 100%;
   }
 
+  .btn-block {
+    margin-top: 20px;
+  }
+
+  .terms-conditions {
+    font-size: 12px;
+
+    &.error {
+      color: red !important;
+    }
+    .mat-checkbox-label {
+      margin-top: 2px;
+    }
+
+    a {
+      text-decoration: underline black;
+      color: black !important;
+    }
+  }
+
   mat-card-header {
     text-align: center;
     width: 100%;

@@ -12,7 +12,7 @@
   <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="0" (swipeleft)="sidenav.toggle(false)">
     <mat-sidenav #sidenav fxLayout="column" [mode]="this.sideNavMode()" fixedTopGap="56" class="sidenav-navigation">
       <mat-nav-list>
-        <app-sidenav-menus></app-sidenav-menus>
+        <app-sidenav-menus [sideNav]="sidenav"></app-sidenav-menus>
       </mat-nav-list>
     </mat-sidenav>
 

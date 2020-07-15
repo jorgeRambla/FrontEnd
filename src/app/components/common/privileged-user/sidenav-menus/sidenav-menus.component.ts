@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PermissionService} from '../../../../services/permissionService/permission.service';
 import {LoggerService} from '../../../../services/shared/logger.service';
 import {Router} from '@angular/router';
+import {MatSidenav} from '@angular/material';
 
 @Component({
   selector: 'app-sidenav-menus',
@@ -18,6 +19,7 @@ export class SidenavMenusComponent implements OnInit {
   hasReviewerPermission: boolean;
   hasAdminPermission: boolean;
   username: string;
+  @Input() public sideNav: MatSidenav;
 
   ngOnInit() {
     this.hasUserPermission = this.permissionService.hasUserPermission();

@@ -8,6 +8,7 @@ import {WorkflowStatusModel} from '../../model/workflow/WorkflowStatus.model';
 import {PageableCollectionModel} from '../../model/PageableCollection.model';
 import {QuizModel} from '../../model/quiz/Quiz.model';
 import {QuizRequest} from '../../model/quiz/Quiz.request';
+import {RequestModel} from '../../model/EditorRequest/EditorRequest.model';
 
 @Injectable({
   providedIn: 'root'
@@ -119,6 +120,35 @@ export class QuizService {
       .then()
       .catch(error => {
         this.logger.debug('Cannot delete Quiz on \'QuizService\'', error);
+        throw error;
+      });
+  }
+
+  public getQuizRequestsPaging(all: boolean, closed: boolean, approved: boolean, page: number, size: number,
+                               sortColumn: string, sortType: string,
+                               requestStatus?: WorkflowStatusModel[]): Promise<PageableCollectionModel<QuizModel>> {
+    return this.http.get(
+      this.baseAPIUrl.concat('/request/list'), {
+        headers: this.userService.getAuthHttpHeader(),
+        params: {
+          all: String(all),
+          closed: String(closed),
+          approved: String(approved),
+          requestStatus: String(requestStatus),
+          page: String(page),
+          size: String(size),
+          sortColumn: String(sortColumn),
+          sortType: String(sortType)
+        }
+      }
+    )
+      .toPromise()
+      .then(data => {
+        return data as PageableCollectionModel<QuizModel>;
+      })
+      .catch(error => {
+        this.userService.checkUserIsAuthorized(error);
+        this.logger.debug('Cannot fetch quiz request list', error);
         throw error;
       });
   }

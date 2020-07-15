@@ -60,6 +60,9 @@
           </mat-error>
         </mat-form-field>
       </mat-card-content>
+      <mat-checkbox color=primary #terms formControlName="terms" [ngClass]="['terms-conditions', terms.checked ? '' : 'error']">
+        I have read, and i accept the following <a (click)="openTerms()">terms and conditions</a>!
+      </mat-checkbox>
       <button mat-stroked-button color="primary" class="btn-block" [disabled]="requesting">
         <mat-icon *ngIf="requesting"><mat-spinner diameter="20">
         </mat-spinner></mat-icon>Sign Up</button>

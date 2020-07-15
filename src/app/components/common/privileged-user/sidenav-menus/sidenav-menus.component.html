@@ -32,8 +32,8 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <a mat-list-item routerLink="request-editor" *ngIf="hasUserPermission">Editor request</a>
-      <a mat-list-item routerLink="." *ngIf="hasEditorPermission">Active requests</a>
+      <a mat-list-item routerLink="request-editor" *ngIf="hasUserPermission" (click)="this.sideNav.close()">Editor request</a>
+      <a mat-list-item routerLink="." *ngIf="hasEditorPermission" (click)="this.sideNav.close()">Active requests</a>
     </ng-template>
   </mat-expansion-panel>
   <!-- ADMIN panel, manage request-->
@@ -45,8 +45,8 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <a mat-list-item routerLink="manage-requests-editor" *ngIf="hasAdminPermission">New editors</a>
-      <a mat-list-item routerLink="manage-requests" *ngIf="hasReviewerPermission">Requests</a>
+      <a mat-list-item routerLink="manage-requests-editor" *ngIf="hasAdminPermission" (click)="this.sideNav.close()">New editors</a>
+      <a mat-list-item routerLink="manage-requests-quiz" *ngIf="hasReviewerPermission" (click)="this.sideNav.close()">New quizzes</a>
     </ng-template>
   </mat-expansion-panel>
   <!-- Editor panel to create quizzes -->
@@ -58,10 +58,10 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <a mat-list-item routerLink="my-questions" *ngIf="hasEditorPermission">My questions</a>
-      <a mat-list-item routerLink="my-questions/new" *ngIf="hasEditorPermission">Create question</a>
-      <a mat-list-item routerLink="my-quizzes" *ngIf="hasEditorPermission">My quizzes</a>
-      <a mat-list-item routerLink="my-quizzes/new" *ngIf="hasEditorPermission">Create quiz</a>
+      <a mat-list-item routerLink="my-questions" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">My questions</a>
+      <a mat-list-item routerLink="my-questions/new" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">Create question</a>
+      <a mat-list-item routerLink="my-quizzes" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">My quizzes</a>
+      <a mat-list-item routerLink="my-quizzes/new" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">Create quiz</a>
     </ng-template>
   </mat-expansion-panel>
 

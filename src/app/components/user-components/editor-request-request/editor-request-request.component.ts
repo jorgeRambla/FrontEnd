@@ -5,8 +5,8 @@ import {LoggerService} from '../../../services/shared/logger.service';
 import {Router} from '@angular/router';
 import {RequestService} from '../../../services/requestService/request.service';
 import {HttpErrorResponse} from '@angular/common/http';
-import {EditorRequestModel} from '../../../model/EditorRequest/EditorRequest.model';
 import {WorkflowDisplayComponent} from '../../common/workflow-display/workflow-display.component';
+import {RequestModel} from '../../../model/EditorRequest/EditorRequest.model';
 
 @Component({
   selector: 'app-editor-request-request',
@@ -18,7 +18,7 @@ export class EditorRequestRequestComponent implements OnInit {
   existsPreviousRequest: boolean;
   previousRequestIsClosed: boolean;
   previousRequestIsApproved: boolean;
-  editorRequest: EditorRequestModel;
+  editorRequest: RequestModel;
   @ViewChild(WorkflowDisplayComponent, { static: false }) workflowDisplayComponent: WorkflowDisplayComponent;
 
 

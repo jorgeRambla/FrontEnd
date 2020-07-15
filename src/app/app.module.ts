@@ -20,15 +20,22 @@ import { ViewPublicQuizzesComponent } from './components/user-components/view-pu
 import { WorkflowDisplayComponent } from './components/common/workflow-display/workflow-display.component';
 import { WorkflowManageDisplayComponent } from './components/common/workflow-manage-display/workflow-manage-display.component';
 import { EditorRequestManageComponent } from './components/reviewer-components/editor-request-manage/editor-request-manage.component';
-import { GameComponentsRequestManagerComponent } from './components/reviewer-components/game-request-manager/game-components-request-manager.component';
+import { QuizRequestManagerComponent } from './components/reviewer-components/quiz-request-manager/quiz-request-manager.component';
 import { CreateQuestionComponent } from './components/editor-components/create-question/create-question.component';
 import { ViewMyQuestionsComponent } from './components/editor-components/view-my-questions/view-my-questions.component';
 import { StatusTagComponent } from './components/common/status-tag/status-tag.component';
 import { AlertingComponent } from './components/common/alerting/alerting.component';
 import { CreateQuizComponent } from './components/editor-components/create-quiz/create-quiz.component';
 import { ViewMyQuizzesComponent } from './components/editor-components/view-my-quizzes/view-my-quizzes.component';
+import {RequestManageComponent} from './components/reviewer-components/request-manage/request-manage.component';
+import { TermsAndConditionsComponent } from './components/common/legal/terms-and-conditions/terms-and-conditions.component';
+import { DialogNotificationComponent } from './components/common/dialog-notification/dialog-notification.component';
 
 @NgModule({
+  entryComponents: [
+    TermsAndConditionsComponent,
+    DialogNotificationComponent
+  ],
   declarations: [
     LoginComponent,
     SignUpComponent,
@@ -41,13 +48,16 @@ import { ViewMyQuizzesComponent } from './components/editor-components/view-my-q
     WorkflowDisplayComponent,
     WorkflowManageDisplayComponent,
     EditorRequestManageComponent,
-    GameComponentsRequestManagerComponent,
+    QuizRequestManagerComponent,
     CreateQuestionComponent,
     ViewMyQuestionsComponent,
     StatusTagComponent,
     AlertingComponent,
     CreateQuizComponent,
-    ViewMyQuizzesComponent
+    ViewMyQuizzesComponent,
+    RequestManageComponent,
+    TermsAndConditionsComponent,
+    DialogNotificationComponent
   ],
   imports: [
     BrowserModule,

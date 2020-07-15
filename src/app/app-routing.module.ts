@@ -7,7 +7,7 @@ import {ConfirmTokenComponent} from './components/common/confirm-token/confirm-t
 import {EditorRequestRequestComponent} from './components/user-components/editor-request-request/editor-request-request.component';
 import {ViewPublicQuizzesComponent} from './components/user-components/view-public-quizzes/view-public-quizzes.component';
 import {EditorRequestManageComponent} from './components/reviewer-components/editor-request-manage/editor-request-manage.component';
-import {GameComponentsRequestManagerComponent} from './components/reviewer-components/game-request-manager/game-components-request-manager.component';
+import {QuizRequestManagerComponent} from './components/reviewer-components/quiz-request-manager/quiz-request-manager.component';
 import {CreateQuestionComponent} from './components/editor-components/create-question/create-question.component';
 import {ViewMyQuestionsComponent} from './components/editor-components/view-my-questions/view-my-questions.component';
 import {ViewMyQuizzesComponent} from './components/editor-components/view-my-quizzes/view-my-quizzes.component';
@@ -50,8 +50,8 @@ const routes: Routes = [
     canActivate: [UserService]
   },
   {
-    path: 'manage-requests',
-    component: GameComponentsRequestManagerComponent,
+    path: 'manage-requests-quiz',
+    component: QuizRequestManagerComponent,
     canActivate: [UserService]
   },
   {

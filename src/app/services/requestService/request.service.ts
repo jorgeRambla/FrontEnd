@@ -3,9 +3,9 @@ import {UserService} from '../userService/user.service';
 import {HttpClient} from '@angular/common/http';
 import {LoggerService} from '../shared/logger.service';
 import {environment} from '../../../environments/environment';
-import {EditorRequestModel} from '../../model/EditorRequest/EditorRequest.model';
 import {WorkflowStatusModel} from '../../model/workflow/WorkflowStatus.model';
 import {PageableCollectionModel} from '../../model/PageableCollection.model';
+import {RequestModel} from '../../model/EditorRequest/EditorRequest.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +52,7 @@ export class RequestService {
       });
   }
 
-  public getCurrentUserEditorRequest(): Promise<EditorRequestModel> {
+  public getCurrentUserEditorRequest(): Promise<RequestModel> {
     return this.http.get(
       this.baseAPIUrl.concat('/editor'), {
         headers: this.userService.getAuthHttpHeader()
@@ -60,7 +60,7 @@ export class RequestService {
     )
       .toPromise()
       .then(data => {
-        return data as EditorRequestModel;
+        return data as RequestModel;
       })
       .catch(error => {
         this.userService.checkUserIsAuthorized(error);
@@ -70,7 +70,7 @@ export class RequestService {
   }
 
   public getEditorRequests(closed: boolean = false, approved: boolean = false,
-                           requestStatus?: WorkflowStatusModel[]): Promise<EditorRequestModel[]> {
+                           requestStatus?: WorkflowStatusModel[]): Promise<RequestModel[]> {
     return this.http.get(
       this.baseAPIUrl.concat('/editor/list'), {
         headers: this.userService.getAuthHttpHeader(),
@@ -83,7 +83,7 @@ export class RequestService {
     )
       .toPromise()
       .then(data => {
-        return data as EditorRequestModel[];
+        return data as RequestModel[];
       })
       .catch(error => {
         this.userService.checkUserIsAuthorized(error);
@@ -94,7 +94,7 @@ export class RequestService {
 
   public getEditorRequestsPaging(all: boolean, closed: boolean, approved: boolean, page: number, size: number,
                                  sortColumn: string, sortType: string,
-                                 requestStatus?: WorkflowStatusModel[]): Promise<PageableCollectionModel<EditorRequestModel>> {
+                                 requestStatus?: WorkflowStatusModel[]): Promise<PageableCollectionModel<RequestModel>> {
     return this.http.get(
       this.baseAPIUrl.concat('/editor/list'), {
         headers: this.userService.getAuthHttpHeader(),
@@ -112,7 +112,7 @@ export class RequestService {
     )
       .toPromise()
       .then(data => {
-        return data as PageableCollectionModel<EditorRequestModel>;
+        return data as PageableCollectionModel<RequestModel>;
       })
       .catch(error => {
         this.userService.checkUserIsAuthorized(error);
