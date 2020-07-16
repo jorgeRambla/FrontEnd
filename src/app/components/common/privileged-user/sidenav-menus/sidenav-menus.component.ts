@@ -3,6 +3,7 @@ import {PermissionService} from '../../../../services/permissionService/permissi
 import {LoggerService} from '../../../../services/shared/logger.service';
 import {Router} from '@angular/router';
 import {MatSidenav} from '@angular/material';
+import {faChartLine, faSignOutAlt, faHeart, faUser, faHistory} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidenav-menus',
@@ -20,6 +21,13 @@ export class SidenavMenusComponent implements OnInit {
   hasAdminPermission: boolean;
   username: string;
   @Input() public sideNav: MatSidenav;
+
+  // icons
+  public statsIcon = faChartLine;
+  public logOutIcon = faSignOutAlt;
+  public heartIcon = faHeart;
+  public userIcon = faUser;
+  public history = faHistory;
 
   ngOnInit() {
     this.hasUserPermission = this.permissionService.hasUserPermission();

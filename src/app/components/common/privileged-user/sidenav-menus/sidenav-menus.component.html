@@ -8,7 +8,11 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <a mat-list-item (click)="logout()">Logout</a>
+      <a mat-list-item disableRipple><fa-icon [icon]="userIcon"></fa-icon>My account</a>
+      <a mat-list-item disableRipple><fa-icon [icon]="heartIcon"></fa-icon>My favorite quizzes</a>
+      <a mat-list-item disableRipple><fa-icon [icon]="history"></fa-icon>My history</a>
+      <a mat-list-item disableRipple><fa-icon [icon]="statsIcon"></fa-icon>My stats</a>
+      <a mat-list-item (click)="logout()"><fa-icon [icon]="logOutIcon"></fa-icon>Logout</a>
     </ng-template>
   </mat-expansion-panel>
   <!-- MURCY config, only available for admins-->

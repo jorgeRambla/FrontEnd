@@ -4,6 +4,9 @@ import {UserService} from '../../../services/userService/user.service';
 import {LoggerService} from '../../../services/shared/logger.service';
 import {Router} from '@angular/router';
 import {HttpErrorResponse} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
+import {DialogNotificationComponent} from '../dialog-notification/dialog-notification.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +18,18 @@ export class LoginComponent implements OnInit {
   public password: FormControl = new FormControl('', [Validators.required]);
   public requesting = false;
 
-  constructor(private userService: UserService, private logger: LoggerService, private router: Router) { }
+  constructor(private userService: UserService, private logger: LoggerService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
+    if (environment.testEnvironment) {
+      this.dialog.open(DialogNotificationComponent, {
+        data: {
+          title: 'Test environment',
+          content: 'This is a test environment, your data might be deleted. If you found any errors notify us in twitter or IG: ' +
+            '@murcy_app. Last data deletion 01-07-2020.'
+        }
+      });
+    }
   }
 
   public submitLoginForm(): void {
