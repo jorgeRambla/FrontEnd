@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Create question</h1>
+<div mat-dialog-content>
+  <app-create-question #createQuestion [popup]="true"></app-create-question>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button *ngIf="this.enabledDraft"
+          [mat-dialog-close]="'draft'"
+          (click)="createQuestion.draft()"
+          [disabled]="!createQuestion.form().question.valid || createQuestion.sendingRequest">Draft</button>
+  <button mat-button
+          [mat-dialog-close]="'create'"
+          (click)="createQuestion.onSubmit()"
+          [disabled]="!createQuestion.enableSubmitButton() || createQuestion.sendingRequest">Create</button>
+</mat-dialog-actions>

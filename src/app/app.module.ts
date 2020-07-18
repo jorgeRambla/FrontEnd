@@ -30,11 +30,13 @@ import { ViewMyQuizzesComponent } from './components/editor-components/view-my-q
 import {RequestManageComponent} from './components/reviewer-components/request-manage/request-manage.component';
 import { TermsAndConditionsComponent } from './components/common/legal/terms-and-conditions/terms-and-conditions.component';
 import { DialogNotificationComponent } from './components/common/dialog-notification/dialog-notification.component';
+import { CreateQuestionDialogComponent } from './components/editor-components/create-question/dialog/create-question-dialog/create-question-dialog.component';
 
 @NgModule({
   entryComponents: [
     TermsAndConditionsComponent,
-    DialogNotificationComponent
+    DialogNotificationComponent,
+    CreateQuestionDialogComponent
   ],
   declarations: [
     LoginComponent,
@@ -57,7 +59,8 @@ import { DialogNotificationComponent } from './components/common/dialog-notifica
     ViewMyQuizzesComponent,
     RequestManageComponent,
     TermsAndConditionsComponent,
-    DialogNotificationComponent
+    DialogNotificationComponent,
+    CreateQuestionDialogComponent
   ],
   imports: [
     BrowserModule,

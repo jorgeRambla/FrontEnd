@@ -88,9 +88,13 @@ div.create-quiz-container {
         width: 70%;
         margin: 0 10px 0 10px;
         @media (max-width: 1378px) {
-          width: 90%;
+          width: 70%;
           margin: 0 10px 0 10px;
         }
+      }
+      button.add-question {
+        display: inline-block;
+
       }
       mat-paginator {
         display: inline-block;

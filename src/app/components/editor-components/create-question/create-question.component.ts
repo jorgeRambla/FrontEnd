@@ -48,7 +48,6 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
               private  questionService: QuestionService, private activatedRoute: ActivatedRoute,
               private navigationService: NavigationService, private media: MediaMatcher,
               private changeDetectorRef: ChangeDetectorRef) {
-    this.navigationService.displayTitle('Create new question');
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this.mobileQueryListener);
@@ -63,6 +62,11 @@ export class CreateQuestionComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   ngOnInit() {
+
+    if (!this.popup) {
+      this.navigationService.displayTitle('Create new question');
+    }
+
     if (this.router.url.match('\\/my-questions\\/update\\/\\d+')) {
       this.pathSubscription = this.activatedRoute.paramMap.subscribe(parameters => {
         this.questionId = parseInt(parameters.get('id'), 10);

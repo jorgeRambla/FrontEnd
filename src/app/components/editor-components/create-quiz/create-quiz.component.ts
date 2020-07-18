@@ -8,11 +8,12 @@ import {QuizService} from '../../../services/quizService/quiz.service';
 import {QuestionModel} from '../../../model/question/Question.model';
 import {QuestionService} from '../../../services/questionService/question.service';
 import {AlertService} from '../../../services/alertingService/alert.service';
-import {MatPaginator, MatTable, PageEvent} from '@angular/material';
+import {MatDialog, MatPaginator, MatTable, PageEvent} from '@angular/material';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {QuizRequest} from '../../../model/quiz/Quiz.request';
 import {HttpErrorResponse} from '@angular/common/http';
 import {QuizModel} from '../../../model/quiz/Quiz.model';
+import {CreateQuestionDialogComponent} from '../create-question/dialog/create-question-dialog/create-question-dialog.component';
 
 @Component({
   selector: 'app-create-quiz',
@@ -47,7 +48,7 @@ export class CreateQuizComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher, private logger: LoggerService,
               private router: Router, private formBuilder: FormBuilder, private alert: AlertService,
               private quizService: QuizService, private activatedRoute: ActivatedRoute, private questionService: QuestionService,
-              private navigationService: NavigationService) {
+              private navigationService: NavigationService, private dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this.mobileQueryListener);
@@ -248,5 +249,18 @@ export class CreateQuizComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public draftValid(): boolean {
     return this.step1Form.controls.quiz.valid;
+  }
+
+  public showCreateQuestionDialog() {
+    this.dialog.open(CreateQuestionDialogComponent, {
+      data: {
+        draft: false
+      },
+      disableClose: true
+    }).afterClosed().subscribe(result => {
+      if (result !== '') {
+        this.updateList(this.paginator.pageIndex, this.paginator.pageSize);
+      }
+    });
   }
 }

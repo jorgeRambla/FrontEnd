@@ -1,11 +1,12 @@
 import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {QuestionModel} from '../../../model/question/Question.model';
-import {MatPaginator, MatSort, PageEvent} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, PageEvent} from '@angular/material';
 import {LoggerService} from '../../../services/shared/logger.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '../../../services/questionService/question.service';
 import {AlertService} from '../../../services/alertingService/alert.service';
 import {NavigationService} from '../../../services/navigationService/navigation.service';
+import {CreateQuestionDialogComponent} from '../create-question/dialog/create-question-dialog/create-question-dialog.component';
 
 @Component({
   selector: 'app-view-my-questions',
@@ -25,7 +26,7 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private logger: LoggerService, private questionService: QuestionService, private formBuilder: FormBuilder,
-              private alert: AlertService, private navigationService: NavigationService) {
+              private alert: AlertService, private navigationService: NavigationService, private dialog: MatDialog) {
     this.navigationService.displayTitle('My questions');
   }
 
@@ -42,6 +43,19 @@ export class ViewMyQuestionsComponent implements AfterViewInit, OnInit {
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.updateList(this.paginator.pageIndex, this.paginator.pageSize);
+  }
+
+  public showCreateQuestionDialog() {
+    this.dialog.open(CreateQuestionDialogComponent, {
+      data: {
+        draft: true
+      },
+      disableClose: true
+    }).afterClosed().subscribe(result => {
+      if (result !== '') {
+        this.refreshList();
+      }
+    });
   }
 
   public filter(): void {

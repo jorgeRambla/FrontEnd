@@ -13,12 +13,15 @@
         <mat-option value="filtered">Published</mat-option>
       </mat-select>
     </mat-form-field>
+    <button class="add-question" mat-button disableRipple (click)="this.showCreateQuestionDialog()">
+      <mat-icon>add_box</mat-icon> Create new question
+    </button>
   </form>
 </div>
 <app-alert></app-alert>
 <div class="question-manage-container" [ngClass]="[questions.length > 0 ? '': 'none']">
   <table [dataSource]="questions" class="question-table" mat-table
-         matSort matSortActive="createDate" matSortDirection="asc" matSortDisableClear multiTemplateDataRows (matSortChange)="refreshList()">
+         matSort matSortActive="createDate" matSortDirection="desc" matSortDisableClear multiTemplateDataRows (matSortChange)="refreshList()">
 
     <ng-container matColumnDef="id">
       <th mat-header-cell scope="col" *matHeaderCellDef mat-sort-header="createDate"> ID </th>

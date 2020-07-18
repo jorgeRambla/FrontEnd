@@ -1,12 +1,31 @@
 div.create-question-container {
   form.create-question-form {
     display: inline-block;
-    max-width: 50%;
+    //max-width: 50%;
+    max-width: 90%;
     width: 100%;
   }
 
-  mat-form-field.option {
-    width: 90%;
+  &.normal {
+    form.create-question-form {
+      display: inline-block;
+      max-width: 50%;
+    }
+
+    mat-form-field.option {
+      width: 90%;
+    }
+  }
+
+  &.popup {
+    form.create-question-form {
+      display: inline-block;
+      max-width: 90%;
+    }
+
+    mat-form-field.option {
+      width: 80%;
+    }
   }
 
   mat-form-field.question {

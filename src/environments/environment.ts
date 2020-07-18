@@ -2,7 +2,7 @@ import {LogLevel} from '../app/services/shared/LogLevel';
 
 export const environment = {
   production: false,
-  testEnvironment: false,
+  testEnvironment: true,
   baseAPIUrl: 'http://localhost:8080/api/',
   logger: {
     level: LogLevel.All,

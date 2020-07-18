@@ -1,4 +1,4 @@
-<div [ngClass]="['create-question-container', popup ? '' : 'normal']">
+<div [ngClass]="['create-question-container', popup ? 'popup' : 'normal']">
   <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="create-question-form">
     <mat-form-field class="question">
       <label>
@@ -41,13 +41,13 @@
         disabled >
       </mat-slide-toggle>
     </div>
-    <div class="button-row">
+    <div class="button-row" *ngIf="!this.popup">
       <button class="primary-action" type="submit" mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.questionId===null">Create</button>
       <button class="primary-action sp" type="button" (click)="submitContinue()"  mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.questionId===null && !this.mobileQuery.matches">Create and continue</button>
       <button class="primary-action" type="submit" mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.questionId!==null">Update</button>
       <button class="draft" type="button" mat-raised-button (click)="draft()" [disabled]="!this.form().question.valid || this.sendingRequest">Save as draft</button>
     </div>
-    <div class="button-row" *ngIf="mobileQuery.matches">
+    <div class="button-row" *ngIf="!this.popup && mobileQuery.matches">
       <button class="primary-action sp-top" type="button" (click)="submitContinue()"  mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.questionId===null">Create and continue</button>
     </div>
   </form>

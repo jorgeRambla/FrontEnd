@@ -44,6 +44,9 @@
               <input matInput class="search" type="search" formControlName="query">
             </label>
           </mat-form-field>
+          <button class="add-question" mat-icon-button disableRipple (click)="this.showCreateQuestionDialog()">
+            <mat-icon aria-hidden="Create new question">add_box</mat-icon>
+          </button>
           <mat-paginator #step2Paginator [length]="questionsLengthStep2"
                          [pageSize]="10"
                          [hidePageSize]="true"
