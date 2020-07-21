@@ -1,7 +1,6 @@
 div.create-question-container {
   form.create-question-form {
     display: inline-block;
-    //max-width: 50%;
     max-width: 90%;
     width: 100%;
   }
@@ -110,22 +109,22 @@ div.create-question-container {
 
   @media (max-width: 718px) {
     form.create-question-form {
-      display: inline-block;
-      max-width: 80%;
-      width: 100%;
+      display: inline-block !important;
+      max-width: 80% !important;
+      width: 100% !important;
     }
     textarea {
       .question {
-        height: 150px;
+        height: 150px !important;
       }
 
       .description {
-        height: 50px;
+        height: 50px !important;
       }
     }
 
     mat-form-field.option {
-      width: 80%;
+      width: 80% !important;
     }
   }
 

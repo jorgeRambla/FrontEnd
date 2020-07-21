@@ -25,9 +25,7 @@ export class UserService implements CanActivate {
   private static setUserSessionData(user: UserModel): void {
     localStorage.setItem('user.id', String(user.id));
     localStorage.setItem('user.username', String(user.username));
-    localStorage.setItem('user.rol', String(user.role.map(item => {
-      return sha256(String(item));
-    })));
+    this.setUserSessionRolData(user.role);
   }
 
   private static removeSessionData(): void {
@@ -36,6 +34,12 @@ export class UserService implements CanActivate {
 
   public static getUserId(): number {
     return Number(localStorage.getItem('user.id'));
+  }
+
+  private static setUserSessionRolData(roles: UserRolModel[]): void {
+    localStorage.setItem('user.rol', String(roles.map(item => {
+      return sha256(String(item));
+    })));
   }
 
   public checkUserIsAuthorized(error: any): void {
@@ -47,6 +51,12 @@ export class UserService implements CanActivate {
       }
     } catch (e) {
       this.logger.debug('Cannot transform given error to HttpErrorResponse');
+    }
+  }
+
+  public setRoles(roles: UserRolModel[]) {
+    if (roles.indexOf(UserRolModel.ADMINISTRATOR) === -1) {
+      UserService.setUserSessionRolData(roles);
     }
   }
 

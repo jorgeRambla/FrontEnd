@@ -11,10 +11,8 @@
 <div class="editor-request-request-container" *ngIf="editorRequest == null || !editorRequest.approved">
   <form [formGroup]="editorRequestForm" (ngSubmit)="onSubmit()" class="request-editor-form">
     <mat-form-field class="full-width">
-      <label>
         <textarea matInput formControlName="description" placeholder="Leave a comment in your request" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' maxlength="1024" *ngIf="editorRequest == null || editorRequest.closed"></textarea>
         <textarea matInput formControlName="description" placeholder="Change your comment in your request" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' maxlength="1024" *ngIf="editorRequest != null && !editorRequest.closed"></textarea>
-      </label>
     </mat-form-field>
 
     <div class="button-row">

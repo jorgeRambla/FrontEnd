@@ -8,7 +8,7 @@ import {WorkflowStatusModel} from '../../model/workflow/WorkflowStatus.model';
 import {PageableCollectionModel} from '../../model/PageableCollection.model';
 import {QuizModel} from '../../model/quiz/Quiz.model';
 import {QuizRequest} from '../../model/quiz/Quiz.request';
-import {RequestModel} from '../../model/EditorRequest/EditorRequest.model';
+import {QuizSimplified} from '../../model/quiz/Quiz.simplified';
 
 @Injectable({
   providedIn: 'root'
@@ -149,6 +149,31 @@ export class QuizService {
       .catch(error => {
         this.userService.checkUserIsAuthorized(error);
         this.logger.debug('Cannot fetch quiz request list', error);
+        throw error;
+      });
+  }
+
+  public getQuizSearchPaging(query: string, page: number, size: number, sortColumn: string,
+                             sortType: string): Promise<PageableCollectionModel<QuizSimplified>> {
+    return this.http.get(
+      this.baseAPIUrl.concat('/search'), {
+        headers: this.userService.getAuthHttpHeader(),
+        params: {
+          query: String(query),
+          page: String(page),
+          size: String(size),
+          sortColumn: String(sortColumn),
+          sortType: String(sortType)
+        }
+      }
+    )
+      .toPromise()
+      .then(data => {
+        return data as PageableCollectionModel<QuizSimplified>;
+      })
+      .catch(error => {
+        this.userService.checkUserIsAuthorized(error);
+        this.logger.debug('Cannot fetch quiz search list', error);
         throw error;
       });
   }

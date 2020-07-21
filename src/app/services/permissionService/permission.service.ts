@@ -83,4 +83,11 @@ export class PermissionService {
     const roles = PermissionService.transformEncryptedRolArrayToRolObjectArray(rolString.split(','));
     return PermissionService.getHigherRol(roles) >= minRol;
   }
+
+  public addEditorRol(): void {
+    const rolString = localStorage.getItem('user.rol');
+    const roles = PermissionService.transformEncryptedRolArrayToRolObjectArray(rolString.split(','));
+    roles.push(UserRolModel.EDITOR);
+    this.userService.setRoles(roles);
+  }
 }

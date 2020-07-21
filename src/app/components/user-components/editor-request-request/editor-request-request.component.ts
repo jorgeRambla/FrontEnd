@@ -7,6 +7,7 @@ import {RequestService} from '../../../services/requestService/request.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {WorkflowDisplayComponent} from '../../common/workflow-display/workflow-display.component';
 import {RequestModel} from '../../../model/EditorRequest/EditorRequest.model';
+import {PermissionService} from '../../../services/permissionService/permission.service';
 
 @Component({
   selector: 'app-editor-request-request',
@@ -23,7 +24,7 @@ export class EditorRequestRequestComponent implements OnInit {
 
 
   constructor(private logger: LoggerService, private requestService: RequestService, private userService: UserService,
-              private router: Router, private formBuilder: FormBuilder) {
+              private router: Router, private formBuilder: FormBuilder, private permissionService: PermissionService) {
   }
 
   public form() {
@@ -36,6 +37,10 @@ export class EditorRequestRequestComponent implements OnInit {
     });
 
     this.retrieveDataAndLoadConfig();
+
+    if (this.editorRequest && this.editorRequest.approved) {
+      this.permissionService.addEditorRol();
+    }
   }
 
   private retrieveDataAndLoadConfig(): void {

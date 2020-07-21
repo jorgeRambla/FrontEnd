@@ -31,6 +31,7 @@ import {RequestManageComponent} from './components/reviewer-components/request-m
 import { TermsAndConditionsComponent } from './components/common/legal/terms-and-conditions/terms-and-conditions.component';
 import { DialogNotificationComponent } from './components/common/dialog-notification/dialog-notification.component';
 import { CreateQuestionDialogComponent } from './components/editor-components/create-question/dialog/create-question-dialog/create-question-dialog.component';
+import {MurcyIcons} from './services/shared/murcy.icons';
 
 @NgModule({
   entryComponents: [
@@ -72,7 +73,8 @@ import { CreateQuestionDialogComponent } from './components/editor-components/cr
   ],
   providers: [
     UserService,
-    PermissionService
+    PermissionService,
+    MurcyIcons
   ],
   bootstrap: [RootComponent]
 })

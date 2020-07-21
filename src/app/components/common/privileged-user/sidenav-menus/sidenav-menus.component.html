@@ -1,43 +1,46 @@
 <mat-accordion>
+  <a mat-list-item disableRipple routerLink="home" (click)="this.sideNav.close()"><fa-icon class="alone" [icon]="icons.playIcon"></fa-icon>Play</a>
   <!-- User manage panel -->
   <mat-expansion-panel *ngIf="hasUserPermission">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        User configuration
+        <fa-icon [icon]="icons.userIcon"></fa-icon>User configuration
       </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <a mat-list-item disableRipple><fa-icon [icon]="userIcon"></fa-icon>My account</a>
-      <a mat-list-item disableRipple><fa-icon [icon]="heartIcon"></fa-icon>My favorite quizzes</a>
-      <a mat-list-item disableRipple><fa-icon [icon]="history"></fa-icon>My history</a>
-      <a mat-list-item disableRipple><fa-icon [icon]="statsIcon"></fa-icon>My stats</a>
-      <a mat-list-item (click)="logout()"><fa-icon [icon]="logOutIcon"></fa-icon>Logout</a>
+      <a mat-list-item disableRipple><fa-icon [icon]="icons.userIcon"></fa-icon><del>My account</del></a>
+      <a mat-list-item disableRipple><fa-icon [icon]="icons.heartIcon"></fa-icon><del>My favorite quizzes</del></a>
+      <a mat-list-item disableRipple><fa-icon [icon]="icons.historyIcon"></fa-icon><del>My history</del></a>
+      <a mat-list-item disableRipple><fa-icon [icon]="icons.statsIcon"></fa-icon><del>My stats</del></a>
+      <a mat-list-item (click)="logout()"><fa-icon [icon]="icons.logOutIcon"></fa-icon>Logout</a>
     </ng-template>
   </mat-expansion-panel>
   <!-- MURCY config, only available for admins-->
   <mat-expansion-panel *ngIf="hasAdminPermission">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Murcy configuration
+        <fa-icon [icon]="icons.settingsIcon"></fa-icon>Murcy configuration
       </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <a mat-list-item routerLink=".">ADMIN CONF 1</a>
+      <a mat-list-item><del>ADMIN CONF 1</del></a>
     </ng-template>
   </mat-expansion-panel>
   <!-- User and editor request (only appliers)-->
   <mat-expansion-panel *ngIf="hasUserPermission && (!hasAdminPermission || !hasReviewerPermission)">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Requests
+        <fa-icon [icon]="icons.newRequestIcon"></fa-icon>Requests
       </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <a mat-list-item routerLink="request-editor" *ngIf="hasUserPermission" (click)="this.sideNav.close()">Editor request</a>
-      <a mat-list-item routerLink="." *ngIf="hasEditorPermission" (click)="this.sideNav.close()">Active requests</a>
+      <a mat-list-item routerLink="request-editor" *ngIf="hasUserPermission" (click)="this.sideNav.close()">
+        <fa-icon [icon]="icons.editorIcon"></fa-icon> Editor request
+      </a>
+      <a mat-list-item *ngIf="hasEditorPermission"><fa-icon [icon]="icons.quizRequestIcon"></fa-icon><del> Active requests</del></a>
     </ng-template>
   </mat-expansion-panel>
   <!-- ADMIN panel, manage request-->
