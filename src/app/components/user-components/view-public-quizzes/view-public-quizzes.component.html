@@ -21,7 +21,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button><del><fa-icon [icon]="icons.playIcon"></fa-icon>Play</del></button>
+      <button mat-button [routerLink]="['/', 'play', quiz.id]"><fa-icon [icon]="icons.playIcon"></fa-icon>Play</button>
       <button mat-button><del><fa-icon [icon]="icons.favIcon"></fa-icon>Favorite</del></button>
     </mat-card-actions>
   </mat-card>

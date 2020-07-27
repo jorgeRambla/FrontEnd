@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {QuestionModel} from '../../../model/question/Question.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatPaginator, MatSort, PageEvent} from '@angular/material';
 import {LoggerService} from '../../../services/shared/logger.service';
@@ -7,6 +6,7 @@ import {AlertService} from '../../../services/alertingService/alert.service';
 import {QuizModel} from '../../../model/quiz/Quiz.model';
 import {QuizService} from '../../../services/quizService/quiz.service';
 import {NavigationService} from '../../../services/navigationService/navigation.service';
+import {MurcyIcons} from '../../../services/shared/murcy.icons';
 
 @Component({
   selector: 'app-view-my-quizzes',
@@ -27,7 +27,7 @@ export class ViewMyQuizzesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private logger: LoggerService, private quizService: QuizService, private formBuilder: FormBuilder,
-              private alert: AlertService, private navigationService: NavigationService) { }
+              private alert: AlertService, private navigationService: NavigationService, public icons: MurcyIcons) { }
 
   ngOnInit() {
     this.navigationService.displayTitle('My quizzes');
@@ -90,5 +90,4 @@ export class ViewMyQuizzesComponent implements AfterViewInit, OnInit {
       this.refreshList();
     });
   }
-
 }

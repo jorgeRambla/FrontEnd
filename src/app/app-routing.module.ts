@@ -12,6 +12,7 @@ import {CreateQuestionComponent} from './components/editor-components/create-que
 import {ViewMyQuestionsComponent} from './components/editor-components/view-my-questions/view-my-questions.component';
 import {ViewMyQuizzesComponent} from './components/editor-components/view-my-quizzes/view-my-quizzes.component';
 import {CreateQuizComponent} from './components/editor-components/create-quiz/create-quiz.component';
+import {PlayQuizComponent} from './components/user-components/play-quizz/play-quiz.component';
 
 const routes: Routes = [
   {
@@ -103,6 +104,11 @@ const routes: Routes = [
         canActivate: [UserService]
       }
     ]
+  },
+  {
+    path: 'play/:id',
+    component: PlayQuizComponent,
+    canActivate: [UserService]
   },
   {
     path: '**',

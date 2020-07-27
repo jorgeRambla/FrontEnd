@@ -9,6 +9,7 @@ import {PageableCollectionModel} from '../../model/PageableCollection.model';
 import {QuizModel} from '../../model/quiz/Quiz.model';
 import {QuizRequest} from '../../model/quiz/Quiz.request';
 import {QuizSimplified} from '../../model/quiz/Quiz.simplified';
+import {AnswerRequest} from '../../model/Answer/Answer.request';
 
 @Injectable({
   providedIn: 'root'
@@ -174,6 +175,42 @@ export class QuizService {
       .catch(error => {
         this.userService.checkUserIsAuthorized(error);
         this.logger.debug('Cannot fetch quiz search list', error);
+        throw error;
+      });
+  }
+
+  public getPublicQuizDataById(id: number): Promise<QuizSimplified> {
+    return this.http.get(
+      this.baseAPIUrl.concat('/{}/public').replace('{}', String(id)), {
+        headers: this.userService.getAuthHttpHeader()
+      }
+    )
+      .toPromise()
+      .then(data => {
+        return data as QuizSimplified;
+      })
+      .catch(error => {
+        this.userService.checkUserIsAuthorized(error);
+        this.logger.debug('Cannot fetch public quiz data', error);
+        throw error;
+      });
+  }
+
+  public submitNewQuizAnswer(quizId: number, answer: AnswerRequest): Promise<number> {
+    return this.http.post(
+      this.baseAPIUrl.concat('/{}/answer').replace('{}', String(quizId)),
+        answer,
+      {
+        headers: this.userService.getAuthHttpHeader(),
+      }
+    )
+      .toPromise()
+      .then(data => {
+        return data as number;
+      })
+      .catch(error => {
+        this.userService.checkUserIsAuthorized(error);
+        this.logger.debug('Cannot submit quiz answer', error);
         throw error;
       });
   }

@@ -16,7 +16,14 @@ import {
   MatExpansionModule,
   MatPaginatorModule,
   MatSortModule,
-  MatTableModule, MatSelectModule, MatMenuModule, MatProgressSpinnerModule, MatStepperModule, MatDialogModule, MatCheckboxModule
+  MatTableModule,
+  MatSelectModule,
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatStepperModule,
+  MatDialogModule,
+  MatCheckboxModule,
+  MatRadioModule
 } from '@angular/material';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
@@ -46,7 +53,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     FontAwesomeModule,
     FlexLayoutModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRadioModule
   ],
   exports: [
     MatButtonModule,
@@ -73,7 +81,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     FontAwesomeModule,
     FlexLayoutModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule {

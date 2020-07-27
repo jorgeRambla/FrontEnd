@@ -11,13 +11,12 @@
       </label>
     </mat-form-field>
 
-
     <div cdkDropList class="options-container" (cdkDropListDropped)="drop($event)">
       <div *ngFor="let item of optionsNumbers" cdkDrag >
         <div class="option-placeholder" *cdkDragPlaceholder></div>
         <mat-form-field class="option">
           <label>
-            <input matInput #Options placeholder="Write the option text"  type="text" formControlName="option{{item}}">
+            <input matInput #Options placeholder="Write the option text"  type="text" formControlName="option{{item}}" maxlength="30">
             <mat-error *ngIf="this.questionForm.get('option' + item) && this.questionForm.get('option' + item).getError('required')">
             </mat-error>
           </label>
@@ -32,7 +31,7 @@
     <div *ngIf="this.optionsNumbers.length < 4 && this.displayNextInput()">
       <mat-form-field class="option">
         <label>
-          <input matInput placeholder="Write the option text"  type="text" (click)="focusOnNext()">
+          <input matInput placeholder="Write the option text"  type="text" (click)="focusOnNext()" maxlength="30">
         </label>
       </mat-form-field>
       <mat-slide-toggle

@@ -13,4 +13,5 @@ export class QuizModel {
   lastWorkflow: WorkflowModel;
   ordered: boolean;
   questions: QuestionModel[];
+  canBePlayed: boolean;
 }

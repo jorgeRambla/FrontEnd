@@ -7,5 +7,7 @@ export class QuizSimplified {
   description: string;
   questions: QuestionModel[];
   createdDate: Date;
+  ordered: boolean;
   lastModifiedDate: Date;
+  canBePlayed: boolean;
 }

@@ -32,6 +32,7 @@ import { TermsAndConditionsComponent } from './components/common/legal/terms-and
 import { DialogNotificationComponent } from './components/common/dialog-notification/dialog-notification.component';
 import { CreateQuestionDialogComponent } from './components/editor-components/create-question/dialog/create-question-dialog/create-question-dialog.component';
 import {MurcyIcons} from './services/shared/murcy.icons';
+import { PlayQuizComponent } from './components/user-components/play-quizz/play-quiz.component';
 
 @NgModule({
   entryComponents: [
@@ -61,7 +62,8 @@ import {MurcyIcons} from './services/shared/murcy.icons';
     RequestManageComponent,
     TermsAndConditionsComponent,
     DialogNotificationComponent,
-    CreateQuestionDialogComponent
+    CreateQuestionDialogComponent,
+    PlayQuizComponent
   ],
   imports: [
     BrowserModule,

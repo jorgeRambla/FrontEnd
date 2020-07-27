@@ -60,15 +60,29 @@
   <mat-expansion-panel *ngIf="hasEditorPermission">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        My Quizzes
+        <fa-icon [icon]="icons.boxIcon"></fa-icon>My Quizzes
       </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <a mat-list-item routerLink="my-questions" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">My questions</a>
-      <a mat-list-item routerLink="my-questions/new" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">Create question</a>
-      <a mat-list-item routerLink="my-quizzes" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">My quizzes</a>
-      <a mat-list-item routerLink="my-quizzes/new" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">Create quiz</a>
+      <a mat-list-item routerLink="my-questions" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">
+        <fa-icon [icon]="icons.questionIcon"></fa-icon>
+        My questions
+      </a>
+      <a mat-list-item routerLink="my-questions/new" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">
+        <fa-icon size="xs" [icon]="icons.plusIcon" class="joined"></fa-icon>
+        <fa-icon [icon]="icons.questionIcon"></fa-icon>
+        Create question
+      </a>
+      <a mat-list-item routerLink="my-quizzes" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">
+        <fa-icon [icon]="icons.quizIcon"></fa-icon>
+        My quizzes
+      </a>
+      <a mat-list-item routerLink="my-quizzes/new" *ngIf="hasEditorPermission" (click)="this.sideNav.close()">
+        <fa-icon size="xs" [icon]="icons.plusIcon" class="joined"></fa-icon>
+        <fa-icon [icon]="icons.quizIcon"></fa-icon>
+        Create quiz
+      </a>
     </ng-template>
   </mat-expansion-panel>
 

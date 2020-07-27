@@ -1,15 +1,15 @@
 import {
+  faBox,
   faChartLine,
   faCog, faFileAlt,
   faFileSignature,
   faHeart,
   faHistory,
-  faPlay,
-  faSignOutAlt,
+  faPlay, faPlus, faQuestion,
+  faSignOutAlt, faStream,
   faUser,
   faUserEdit
 } from '@fortawesome/free-solid-svg-icons';
-import {LogLevel} from './LogLevel';
 
 export class MurcyIcons {
   public statsIcon = faChartLine;
@@ -23,6 +23,10 @@ export class MurcyIcons {
   public editorIcon = faUserEdit;
   public quizRequestIcon = faFileAlt;
   public favIcon = faHeart;
+  public boxIcon = faBox;
+  public questionIcon = faQuestion;
+  public plusIcon = faPlus;
+  public quizIcon = faStream;
 
   constructor() {
   }
