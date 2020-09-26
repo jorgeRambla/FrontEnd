@@ -1,0 +1,160 @@
+div.play-quiz-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2% !important;
+  height: 70% !important;
+
+  div.start-container {
+    margin-top: 5% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    width: 80%;
+
+    @media (max-width: 400px) {
+      width: 100%;
+    }
+
+    p {
+      word-wrap: anywhere;
+      width: 40% !important;
+
+      @media (max-width: 400px) {
+        width: 70% !important;
+      }
+    }
+
+    p, h2, button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: auto !important;
+      margin-left: auto !important;
+    }
+
+    button {
+      margin-top: 40px;
+      width: 20%;
+
+      @media (max-width: 900px) {
+        width: 70%;
+      }
+    }
+  }
+
+
+  div.question-container {
+    margin-top: 5% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    width: 80%;
+    height: 100%;
+
+    @media (max-width: 400px) {
+      width: 100%;
+    }
+
+    mat-card {
+      width: 40% !important;
+      margin-right: auto !important;
+      margin-left: auto !important;
+      border-radius: 15px;
+      @media (max-width: 900px) and (orientation: portrait) {
+        width: 90% !important;
+      }
+
+      @media (max-width: 900px) and (orientation: landscape) {
+        width: 90% !important;
+      }
+    }
+
+    mat-card-header {
+      width: 80%;
+      margin: auto;
+    }
+
+    mat-card-content {
+      width: 80%;
+      margin: auto;
+
+      form {
+        width: 100%;
+
+        mat-checkbox, mat-radio-button {
+          word-wrap: anywhere;
+        }
+
+        ul {
+          padding: 0;
+          list-style-type: none;
+        }
+
+        li {
+          margin-top: 10px;
+
+          mat-checkbox ::ng-deep .mat-checkbox-inner-container {
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+
+    mat-card-actions {
+      width: 80%;
+      margin: auto;
+      justify-content: flex-end;
+    }
+
+    mat-card-title, mat-card-subtitle{
+      word-wrap: anywhere;
+    }
+
+    mat-card-title {
+      @media (max-width: 900px) and (orientation: portrait) {
+        &.reduced {
+          font-size: 10px;
+        }
+      }
+
+      @media (max-width: 1300px) and (orientation: landscape) {
+        &.reduced {
+          font-size: 12px;
+        }
+      }
+
+      @media (max-width: 900px) and (orientation: landscape) {
+        &.reduced {
+          font-size: 10px;
+        }
+      }
+    }
+
+    mat-card-subtitle {
+      @media (max-width: 900px) and (orientation: portrait) {
+        &.reduced {
+          font-size: 7px;
+        }
+      }
+
+      @media (max-width: 1300px) and (orientation: landscape) {
+        &.reduced {
+          font-size: 9px;
+        }
+      }
+
+      @media (max-width: 900px) and (orientation: landscape) {
+        &.reduced {
+          font-size: 7px;
+        }
+      }
+    }
+  }
+
+  div.results-container {
+    margin-top: 5% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    width: 80%;
+  }
+}

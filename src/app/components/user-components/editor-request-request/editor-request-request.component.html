@@ -1,0 +1,24 @@
+<div class="editor-request-approved" *ngIf="editorRequest != null && editorRequest.approved">
+  <p class="congrats-message">
+    Congratulations, you are already an editor!
+  </p>
+</div>
+
+<div class="editor-request-workflow" *ngIf="existsPreviousRequest">
+  <app-workflow-display class="editor-request-workflow-tag" [workflow]="editorRequest.workflow" [lastWorkflow]="editorRequest.lastWorkflow"></app-workflow-display>
+</div>
+
+<div class="editor-request-request-container" *ngIf="editorRequest == null || !editorRequest.approved">
+  <form [formGroup]="editorRequestForm" (ngSubmit)="onSubmit()" class="request-editor-form">
+    <mat-form-field class="full-width">
+        <textarea matInput formControlName="description" placeholder="Leave a comment in your request" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' maxlength="1024" *ngIf="editorRequest == null || editorRequest.closed"></textarea>
+        <textarea matInput formControlName="description" placeholder="Change your comment in your request" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' maxlength="1024" *ngIf="editorRequest != null && !editorRequest.closed"></textarea>
+    </mat-form-field>
+
+    <div class="button-row">
+      <button (click)="editorRequestForm.reset()" mat-raised-button color="warn">Reset request</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!editorRequestForm.valid" *ngIf="editorRequest == null || editorRequest.closed">Submit</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!editorRequestForm.valid" *ngIf="editorRequest != null && !editorRequest.closed">Update</button>
+    </div>
+  </form>
+</div>

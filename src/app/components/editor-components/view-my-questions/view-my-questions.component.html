@@ -1,0 +1,75 @@
+<div class="question-manage-filter">
+  <form [formGroup]="filterForm">
+    <mat-form-field>
+      <mat-label><mat-icon>search</mat-icon> Search</mat-label>
+      <label>
+        <input matInput type="search" formControlName="query">
+      </label>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Show editor requests</mat-label>
+      <mat-select formControlName="filter">
+        <mat-option value="all">All</mat-option>
+        <mat-option value="filtered">Published</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button class="add-question" mat-button disableRipple (click)="this.showCreateQuestionDialog()">
+      <mat-icon>add_box</mat-icon> Create new question
+    </button>
+  </form>
+</div>
+<app-alert></app-alert>
+<div class="question-manage-container" [ngClass]="[questions.length > 0 ? '': 'none']">
+  <table [dataSource]="questions" class="question-table" mat-table
+         matSort matSortActive="createDate" matSortDirection="desc" matSortDisableClear multiTemplateDataRows (matSortChange)="refreshList()">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell scope="col" *matHeaderCellDef mat-sort-header="createDate"> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell scope="col" *matHeaderCellDef mat-sort-header="title"> Title </th>
+      <td mat-cell *matCellDef="let element"> {{truncate(element.title)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell scope="col" *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element">
+        <app-status-tag [status]="element.lastWorkflow.status"></app-status-tag>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="menu">
+      <th mat-header-cell scope="col" *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button [routerLink]="['/', 'my-questions', 'update', element.id]" mat-menu-item>
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>publish</mat-icon>
+            <span>Publish</span>
+          </button>
+          <button (click)="deleteQuestion(element.id)" mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+        class="request-element-row">
+    </tr>
+  </table>
+</div>
+<mat-paginator [length]="resultsLength" [ngClass]="[questions.length > 0 ? '': 'none']"
+               [pageSize]="5"
+               [pageSizeOptions]="[5,10]"
+               (page)="refreshData($event)"></mat-paginator>

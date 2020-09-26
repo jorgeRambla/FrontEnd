@@ -1,0 +1,25 @@
+<div class="confirm-token-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <a routerLink="/">
+      <img class="logo" src="../../../../assets/icons/icon-512x512.png"/>
+    </a>
+    <div *ngIf="isConfirmValid">
+      <div class="account-confirmed status">
+        <p>Account confirmed successfully</p>
+        <p>Redirecting to HOME in {{timeout}} seconds</p>
+        <a routerLink="/" *ngIf="timeout === 0">
+          <p>Problems with Redirect? Go HOME manually</p>
+        </a>
+      </div>
+    </div>
+    <div *ngIf="!isConfirmValid">
+      <div class="token-not-found status">
+        <p>Given token is not valid</p>
+        <p>Redirecting to HOME in {{timeout}} seconds</p>
+        <a routerLink="/" *ngIf="timeout === 0">
+          <p>Problems with Redirect? Go HOME manually</p>
+        </a>
+      </div>
+    </div>
+  </mat-card>
+</div>

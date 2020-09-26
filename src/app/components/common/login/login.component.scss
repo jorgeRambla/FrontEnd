@@ -1,0 +1,127 @@
+.login-wrapper {
+  background-color: darkslategray;
+  height: 100%;
+
+  .login-other-options-container {
+    a {
+      color: black;
+    }
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    line-height: 54px;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .forgot-password {
+    float: right;
+    color: rgba(0, 0, 0, 0.54);
+    margin-top: -22px;
+    font-size: 14px;
+  }
+
+  .login-form {
+    min-width: 100%;
+    max-width: 300px;
+    width: 100%;
+  }
+
+  .input-full-width, .btn-block {
+    width: 100%;
+  }
+
+  mat-card-header {
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-weight: 700;
+  }
+
+  mat-card-header mat-card-title {
+    font-size: 30px;
+    margin: 0;
+  }
+
+  .mat-card {
+    padding: 40px 70px 50px;
+  }
+
+  .mat-stroked-button {
+    border: 1px solid currentColor;
+    line-height: 54px;
+    background: #FFF7FA;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: 0.8375em 0;
+  }
+
+  .box {
+    position: relative;
+    top: 0;
+    opacity: 1;
+    float: left;
+    padding: 60px 50px 40px 50px;
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    z-index: 5;
+    max-width: 330px;
+  }
+
+  .box.back {
+    transform: scale(.95);
+    -webkit-transform: scale(.95);
+    -ms-transform: scale(.95);
+    top: -20px;
+    opacity: .8;
+    z-index: -1;
+  }
+
+  .box:before {
+    content: "";
+    width: 105%;
+    height: 105%;
+    border-radius: 10px;
+    position: absolute;
+    top: -25px;
+    background: rgba(255, 255, 255, .6);
+    left: 0;
+    transform: scale(.95);
+    -webkit-transform: scale(.95);
+    -ms-transform: scale(.95);
+    z-index: -1;
+  }
+
+  .logo {
+    display: block;
+    width: 40%;
+    max-width: 500px;
+    height: auto;
+    margin: auto;
+  }
+}
+
+@media (max-width: 479px) {
+  .login-wrapper {
+    .box:before {
+      content: "";
+      width: 100%;
+      height: 100px;
+      border-radius: 10px;
+      position: absolute;
+      top: -10px;
+      background: rgba(255, 255, 255, .6);
+      left: 0;
+      transform: scale(.95);
+      -webkit-transform: scale(.95);
+      -ms-transform: scale(.95);
+      z-index: -1;
+    }
+  }
+}

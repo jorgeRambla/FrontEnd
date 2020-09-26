@@ -1,0 +1,28 @@
+<div fxFill class="app-sidenav-navigation-container auto" *ngIf="showNavigation">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="current-app-name" *ngIf="currentPage">MURCY - {{currentPage}}</span>
+      <span class="current-app-name" *ngIf="!currentPage">MURCY</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="0" (swipeleft)="sidenav.toggle(false)">
+    <mat-sidenav #sidenav fxLayout="column" [mode]="this.sideNavMode()" fixedTopGap="56" class="sidenav-navigation">
+      <mat-nav-list>
+        <app-sidenav-menus [sideNav]="sidenav"></app-sidenav-menus>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content >
+      <div class="swipe-div" (swiperight)="sidenav.toggle()"></div>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+<!-- Display not login components -->
+<div *ngIf="!showNavigation" fxFill>
+  <router-outlet></router-outlet>
+</div>

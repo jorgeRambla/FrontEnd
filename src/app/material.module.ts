@@ -16,8 +16,16 @@ import {
   MatExpansionModule,
   MatPaginatorModule,
   MatSortModule,
-  MatTableModule
+  MatTableModule,
+  MatSelectModule,
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatStepperModule,
+  MatDialogModule,
+  MatCheckboxModule,
+  MatRadioModule
 } from '@angular/material';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   imports: [
@@ -35,10 +43,18 @@ import {
     MatSortModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSelectModule,
+    DragDropModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatRadioModule
   ],
   exports: [
     MatButtonModule,
@@ -55,10 +71,18 @@ import {
     MatSortModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSelectModule,
+    DragDropModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule {

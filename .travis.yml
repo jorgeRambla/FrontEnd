@@ -5,15 +5,15 @@ dist: trusty
 sudo: required
 env:
   global:
-    secure: rXBK+5PiYEhpUYucwznsrkAcfdQ8HYrAMdGpz4sZCLTkcGUDfEGiCarUWt0RUPgyGzD6RJT70Ob9SkE8fNIOhKitmRW6lW6dMpyvkt2NEbDbJzjBBa3Kg1v82BPrpLmzM8tPXhl3FHB692OjXnpXhThgbwbnqrfTu/0++HltwsV/1CBhhMZV0pPtAlCXo4E1iaqXxF49lcc7lB56/iSQbALgpPjWEPrTAusVgxKVY46UV1iv/gqYlYwo6qy2vrQRK6gTTWsG8OTaXGPoaFoW+Qgj6reYut3boU3RBfFkQ9XhGvKVOnSRakOujjZbZHmHSfFaYLp8NgCSiowoSBdci3gOgHniuLxPpvbcex9csRysidE32GJPBkfTTAa7AakyVkONSXLd5mj+f3hx+kB3cUiDCMwa3CCOd0SLKlxtAI10jElc4GTyWmCBd/BYLajtgPApjLMod9FGTotq8Snxw+VZPKXJwhmahfxtbkA5d4joHAGJHAyMj/RGW7wv7tkYja7OUWp9ldeVZJzw0YxHiYfbEJ+je+2hxiQTUpoxjFf9gYGd13Pp6iN2OpyVAc/iyR7xnqSQ2q/quYMHkxpekjwT3eqr5roVJFVk4PWfnt9AzytqF6fP3vqg6LR1yBdA01Q3oK6TVjw3+xJGQB2MC9CO7RNndCyHOLwX4rynk3w=
+    secure: 2d5Ru9uKt5iRur2b/CuDWgME7zYWrGIM7bJWehfklxJ0kpywWSZOYOZ6/8ORI8D2TtptWork0njZIpKG0U74S9DtuJuSDs6/FVfsdVVtH+NiKSn3iH7pvJab1JJ/eWqWZg17v0MtjTRXZkoVQnPOgR/8smX/HiP2hES5AAsUsvc14v72ZLf/FRAH6CNAfMhRP7WlxX25fqdiQ+R3wsFqgd0ykFsR+1T8+/dYWHWm55FW0eQfkn1UjtHk0xJ+0wd5QQ0iAxeFQNsyYBaQ6RMdPJALLWIdxdt/9QCWP+Td7NdlS0UMjb2ib7ASQg0ZKj1ODkd8BkQ3htWjvuC9q1MAJLxPpspSYfIypXavq4eq3XPY5vA9Z9W2T0wV8biM07wDl3XMchk9epzOBt3GE1PwM0B5YgB6D5pk8LYZJ2c+O5o6gHaMAR4wgW4Dc+dw5GbACC9IqaUDViYAtIFkA4wkTasPjV/7Fz3rFqpg2S1KEAm5UPbnHIZPh77CVae9ZaoU2qHiV4B3I417XdeNhY6Hp2MP3oa76O/1mDjwjncEDSJa3nvloRDz4Ws6TTx9PYf7A7x3T/MN7/hR2S7pr6K4LmXrOXwYs+YJhpsrFxh6WryYgy44QeOoj2wroZXgHK+uhFm5nswYcLSq0dHHXi+b11P9iLuQkQaMavaUkG2YpV0=
 addons:
   chrome: stable
   sonarcloud:
     organization: jorgerambla
-    token:
-      secure: "$SONAR_TOKEN"
+    token: "$SONAR_TOKEN"
 before_script:
 - npm install -g --silent @angular/cli@8.3.20
 script:
 - ng lint
-#- sonar-scanner
+- "./build.sh"
+- sonar-scanner

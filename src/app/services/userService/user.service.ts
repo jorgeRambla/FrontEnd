@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {TokenModel} from '../../model/Token.model';
 import {LoggerService} from '../shared/logger.service';
@@ -25,9 +25,7 @@ export class UserService implements CanActivate {
   private static setUserSessionData(user: UserModel): void {
     localStorage.setItem('user.id', String(user.id));
     localStorage.setItem('user.username', String(user.username));
-    localStorage.setItem('user.rol', String(user.role.map(item => {
-      return sha256(String(item));
-    })));
+    this.setUserSessionRolData(user.role);
   }
 
   private static removeSessionData(): void {
@@ -36,6 +34,30 @@ export class UserService implements CanActivate {
 
   public static getUserId(): number {
     return Number(localStorage.getItem('user.id'));
+  }
+
+  private static setUserSessionRolData(roles: UserRolModel[]): void {
+    localStorage.setItem('user.rol', String(roles.map(item => {
+      return sha256(String(item));
+    })));
+  }
+
+  public checkUserIsAuthorized(error: any): void {
+    try {
+      const httpError = error as HttpErrorResponse;
+      if (httpError.status === 401) {
+        // TODO: If user want to extend session auto restore with new session
+        UserService.removeSessionData();
+      }
+    } catch (e) {
+      this.logger.debug('Cannot transform given error to HttpErrorResponse');
+    }
+  }
+
+  public setRoles(roles: UserRolModel[]) {
+    if (roles.indexOf(UserRolModel.ADMINISTRATOR) === -1) {
+      UserService.setUserSessionRolData(roles);
+    }
   }
 
   public getAuthHttpHeader(): HttpHeaders {
@@ -108,6 +130,7 @@ export class UserService implements CanActivate {
         return data as UserModel;
       } )
       .catch( error => {
+        this.checkUserIsAuthorized(error);
         this.logger.debug('Cannot fetch current session user on \'UserService\'', error);
         throw error;
       });
@@ -175,7 +198,6 @@ export class UserService implements CanActivate {
           return false;
         });
       }
-      return true;
     }
     return true;
   }

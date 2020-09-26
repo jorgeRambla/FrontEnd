@@ -1,0 +1,91 @@
+<div *ngIf="!mobileQuery.matches && false" class="create-quiz-container"> <!-- Big screen -->
+    <form [formGroup]="step1Form" (ngSubmit)="onSubmit()" class="create-quiz-form">
+      <mat-form-field class="quiz">
+        <label>
+          <textarea class="quiz" matInput formControlName="quiz" placeholder="Create here your amazing quiz" maxlength="256"></textarea>
+        </label>
+      </mat-form-field>
+      <mat-form-field class="quiz">
+        <label>
+          <textarea class="description" matInput formControlName="description" placeholder="Description" maxlength="128"></textarea>
+        </label>
+      </mat-form-field>
+    </form>
+</div>
+<div class="button-row">
+  <button class="primary-action" type="button" (click)="onSubmit()" mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.quizId===null">Create</button>
+  <button class="primary-action" type="button" (click)="onSubmit()" mat-raised-button [disabled]="!this.enableSubmitButton()" *ngIf="this.quizId!==null">Update</button>
+  <button class="draft" type="button" mat-raised-button (click)="draft()" [disabled]="!this.draftValid() || this.sendingRequest">Save as draft</button>
+</div>
+<div class="create-quiz-container"> <!-- Big screen -->
+  <mat-vertical-stepper #stepper>
+    <mat-step [stepControl]="step1Form">
+      <form [formGroup]="step1Form" class="create-quiz-form">
+        <ng-template matStepLabel>Name your quiz</ng-template>
+        <mat-form-field class="quiz">
+          <label>
+            <textarea class="quiz" matInput formControlName="quiz" placeholder="Create here your amazing quiz" maxlength="256"></textarea>
+          </label>
+        </mat-form-field>
+        <mat-form-field class="quiz">
+          <label>
+            <textarea class="description" matInput formControlName="description" placeholder="Description" maxlength="128"></textarea>
+          </label>
+        </mat-form-field>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="step2Form">
+      <form [formGroup]="step2Form" class="add_questions_search_form">
+        <ng-template matStepLabel>Choose questions</ng-template>
+        <div class="search">
+          <mat-form-field class="search">
+            <mat-label><mat-icon>search</mat-icon> Search</mat-label>
+            <label>
+              <input matInput class="search" type="search" formControlName="query">
+            </label>
+          </mat-form-field>
+          <button class="add-question" mat-icon-button disableRipple (click)="this.showCreateQuestionDialog()">
+            <mat-icon aria-hidden="Create new question">add_box</mat-icon>
+          </button>
+          <mat-paginator #step2Paginator [length]="questionsLengthStep2"
+                         [pageSize]="10"
+                         [hidePageSize]="true"
+                         (page)="refreshData($event)">
+          </mat-paginator>
+          <app-alert [id]="0"></app-alert>
+          <table [dataSource]="questionsStep2" class="questions-table" mat-table>
+            <ng-container matColumnDef="title">
+              <td mat-cell *matCellDef="let element"> {{truncate(element.title)}} </td>
+            </ng-container>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+                [ngClass]="['request-element-row', this.selected(element.id) ? 'selected' : '']" (click)="toggleQuestion(element)">
+            </tr>
+          </table>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="step3Form">
+      <app-alert [id]="1"></app-alert>
+      <ng-template matStepLabel>Order questions</ng-template>
+      <form [formGroup]="step3Form" class="order-questions-form" *ngIf="selectedQuestions.length >= 5">
+        <mat-slide-toggle formControlName="ordered"
+                          class="order-questions-slider"
+                          color="primary" labelPosition="before">
+          Order questions
+        </mat-slide-toggle>
+      </form>
+      <table #step3Table [dataSource]="this.selectedQuestions" [ngClass]="['order-table', ordered ? '' : 'none']" mat-table cdkDropList
+             *ngIf="selectedQuestions.length >= 5" (cdkDropListDropped)="drop($event)">
+        <ng-container matColumnDef="index">
+          <td mat-cell *matCellDef="let question; let i = index;">{{i + 1}}</td>
+        </ng-container>
+        <ng-container matColumnDef="title">
+          <td mat-cell *matCellDef="let question"> {{truncate(question.title)}} </td>
+        </ng-container>
+        <tr mat-row *matRowDef="let question; columns: displayedColumnsStep3;"
+            [ngClass]="['request-element-row']" cdkDrag>
+        </tr>
+      </table>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>
